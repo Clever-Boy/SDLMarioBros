@@ -52,5 +52,6 @@ void Graphics::RenderPresent() { SDL_RenderPresent(this->m_renderer); }
 
 void Graphics::BlitTexture(SDL_Texture* texture, SDL_Rect* destRect)
 {
-	SDL_RenderCopy(this->m_renderer, texture, NULL, destRect);
+	if (SDL_RenderCopy(this->m_renderer, texture, NULL, destRect) < 0)
+		printf("ERROR : Cannot render texture SDL_Error : %s",SDL_GetError());
 }

@@ -11,6 +11,9 @@
 const int SCREEN_WIDTH = 256;
 const int SCREEN_HEIGHT = 240;
 
+const int LEVEL_WIDTH = 1280;
+const int LEVEL_HEIGHT = 720;
+
 class Graphics
 {
 public:

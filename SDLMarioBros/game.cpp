@@ -32,6 +32,13 @@ int Game::SDLInit()
 void Game::GameLoop()
 {
 	this->m_player = new Player(this->m_graphics, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
+	
+	// Init the camera
+	this->camera = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
+	camera.x = (m_player->GetX() + m_player->GetWidth() / 2) - SCREEN_WIDTH / 2;
+	camera.y = (m_player->GetY() + m_player->GetHeight() / 2) - SCREEN_HEIGHT / 2;
+
+	const Uint8* currentKeyState = NULL;
 	bool quit = false;
 	while (!quit)
 	{
@@ -43,6 +50,8 @@ void Game::GameLoop()
 				quit = true;
 			}
 		}
+		currentKeyState = SDL_GetKeyboardState(NULL);
+		this->HandleInput(currentKeyState);
 		Update();
 		Draw();
 	}
@@ -53,12 +62,33 @@ void Game::Draw()
 	this->m_graphics->Clear();
 	
 	if (this->m_player != NULL)
-		this->m_player->Draw(this->m_graphics);
+		this->m_player->Draw(this->m_graphics,this->camera.x,this->camera.y);
 
 	this->m_graphics->RenderPresent();
 }
 
 void Game::Update()
 {
+	// Update the camera
+	this->camera.x = (m_player->GetX() + m_player->GetWidth() / 2) - SCREEN_WIDTH / 2;
+	this->camera.y = (m_player->GetY() + m_player->GetHeight() / 2) - SCREEN_HEIGHT / 2;
 
+	if (camera.x < 0) { camera.x = 0; }
+	if (camera.y < 0) { camera.y = 0; }
+	if (camera.x > LEVEL_WIDTH - camera.w)
+	{
+		camera.x = LEVEL_WIDTH - camera.w; 
+	}
+	if (camera.y > LEVEL_HEIGHT - camera.h){
+		camera.y = LEVEL_HEIGHT - camera.h;
+	}
+
+}
+
+void Game::HandleInput(const Uint8 *keystate)
+{
+	if (keystate[SDL_SCANCODE_LEFT])
+		this->m_player->MoveLeft();
+	if (keystate[SDL_SCANCODE_RIGHT])
+		this->m_player->MoveRight();
 }
