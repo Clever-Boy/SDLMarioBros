@@ -15,6 +15,7 @@ Game::~Game()
 	SDL_Quit();
 }
 
+// Initialize all SDL Subsystems
 int Game::SDLInit()
 {
 	if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
@@ -42,4 +43,14 @@ void Game::GameLoop()
 			}
 		}
 	}
+}
+
+void Game::Draw()
+{
+
+}
+
+void Game::Update()
+{
+
 }
