@@ -7,8 +7,9 @@ class Player
 {
 public:
 	Player();
+	Player(Graphics* graph,int x, int y);
 	~Player();
-	void Draw(Graphics graph);
+	void Draw(Graphics* graph);
 
 private:
 	int m_x;

@@ -31,6 +31,7 @@ int Game::SDLInit()
 
 void Game::GameLoop()
 {
+	this->m_player = new Player(this->m_graphics, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 	bool quit = false;
 	while (!quit)
 	{
@@ -42,12 +43,19 @@ void Game::GameLoop()
 				quit = true;
 			}
 		}
+		Update();
+		Draw();
 	}
 }
 
 void Game::Draw()
 {
+	this->m_graphics->Clear();
+	
+	if (this->m_player != NULL)
+		this->m_player->Draw(this->m_graphics);
 
+	this->m_graphics->RenderPresent();
 }
 
 void Game::Update()
