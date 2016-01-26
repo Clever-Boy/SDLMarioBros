@@ -26,6 +26,17 @@ void Player::Update()
 {
 	this->m_x += m_velx;
 	this->m_y += m_vely;
+
+	// Limit the mouvement of the player to the boundaries of the level
+	if (this->m_x > LEVEL_WIDTH - this->GetWidth())
+		this->m_x = LEVEL_WIDTH - this->GetWidth();
+	if (this->m_x < 0)
+		this->m_x = 0;
+	if (this->m_y > LEVEL_HEIGHT)
+		this->m_y = 0;
+	if (this->m_y < 0)
+		this->m_y = 0;
+
 	SDL_Delay(4);			// Need to find another way to slow instead of delay
 }
 
@@ -50,6 +61,11 @@ void Player::MoveLeft()
 void Player::MoveRight()
 {
 	this->m_velx = PLAYER_SPEED;
+}
+
+void Player::Jump()
+{
+	// this->m_vely += JUMP_STRENGTH;
 }
 
 int Player::GetX()
