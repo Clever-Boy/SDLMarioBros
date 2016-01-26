@@ -83,12 +83,16 @@ void Game::Update()
 		camera.y = LEVEL_HEIGHT - camera.h;
 	}
 
+	this->m_player->Update();
+
 }
 
 void Game::HandleInput(const Uint8 *keystate)
 {
 	if (keystate[SDL_SCANCODE_LEFT])
 		this->m_player->MoveLeft();
-	if (keystate[SDL_SCANCODE_RIGHT])
+	else if (keystate[SDL_SCANCODE_RIGHT])
 		this->m_player->MoveRight();
+	else
+		this->m_player->Idle();
 }
