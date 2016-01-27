@@ -9,9 +9,9 @@
 
 
 const int SCREEN_WIDTH = 256;
-const int SCREEN_HEIGHT = 240;
+const int SCREEN_HEIGHT = 224;
 
-const int LEVEL_WIDTH = 1280;
+const int LEVEL_WIDTH = 3392;
 const int LEVEL_HEIGHT = SCREEN_HEIGHT;
 
 class Graphics

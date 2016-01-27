@@ -9,7 +9,7 @@ Graphics::Graphics()
 		this->m_renderer = SDL_CreateRenderer(this->m_window, -1, SDL_RENDERER_ACCELERATED);
 		if (this->m_renderer != NULL)
 		{
-			SDL_SetRenderDrawColor(this->m_renderer, 255, 255, 255, 255);
+			SDL_SetRenderDrawColor(this->m_renderer, 104, 140, 255, 255);
 		}
 		else
 			printf("ERROR : Cannot create renderer SDL_Error : %s", SDL_GetError());
