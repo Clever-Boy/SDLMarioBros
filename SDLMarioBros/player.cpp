@@ -7,6 +7,7 @@ Player::Player()
 	this->m_sprite = NULL;
 	this->m_velx = 0;
 	this->m_vely = 0;
+	this->onGround = false;
 }
 
 Player::Player(Graphics* graph,int x, int y)
@@ -37,6 +38,12 @@ void Player::Update()
 	if (this->m_y < 0)
 		this->m_y = 0;
 
+	// Gravity (bottom border of the screen considered as solid 'til Level is implemented)
+	if (!this->onGround && this->m_y < LEVEL_HEIGHT - this->GetHeight() && !this->jumping)
+		this->m_vely = -JUMP_STRENGTH;
+	else
+		this->m_vely = 0;
+
 	SDL_Delay(4);			// Need to find another way to slow instead of delay
 }
 
@@ -65,7 +72,18 @@ void Player::MoveRight()
 
 void Player::Jump()
 {
-	// this->m_vely += JUMP_STRENGTH;
+	/*this->m_vely += JUMP_STRENGTH;
+	this->jumping = true;*/
+}
+
+bool Player::isOnGround()
+{
+	return this->m_onGround;
+}
+
+bool Player::isJumping()
+{
+	return this->m_jumping;
 }
 
 int Player::GetX()

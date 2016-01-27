@@ -4,7 +4,7 @@
 #include "texture.h"
 
 const int PLAYER_SPEED = 1;
-const int JUMP_STRENGTH = 1;
+const int JUMP_STRENGTH = -1;
 
 class Player
 {
@@ -22,6 +22,10 @@ public:
 	void MoveRight();
 	void Jump();
 
+	// Player's States
+	bool isOnGround();
+	bool isJumping();
+
 	// Accessors
 	int GetX();
 	int GetY();
@@ -33,5 +37,7 @@ private:
 	int m_y;
 	int m_velx;
 	int m_vely;
+	bool m_onGround;
+	bool m_jumping;
 	Texture* m_sprite;
 };

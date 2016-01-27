@@ -31,7 +31,7 @@ int Game::SDLInit()
 
 void Game::GameLoop()
 {
-	this->m_player = new Player(this->m_graphics, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
+	this->m_player = new Player(this->m_graphics, SCREEN_WIDTH / 2, 0);
 	
 	// Init the camera
 	this->camera = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
