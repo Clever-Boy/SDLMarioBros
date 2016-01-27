@@ -2,6 +2,7 @@
 
 #include "graphics.h"
 #include "texture.h"
+#include "timer.h"
 
 const int PLAYER_SPEED = 1;
 const int JUMP_STRENGTH = -1;
@@ -40,4 +41,5 @@ private:
 	bool m_onGround;
 	bool m_jumping;
 	Texture* m_sprite;
+	Timer m_timer;
 };

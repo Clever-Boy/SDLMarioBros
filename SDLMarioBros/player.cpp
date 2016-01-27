@@ -34,15 +34,24 @@ void Player::Update()
 		this->m_x = LEVEL_WIDTH - this->GetWidth();
 	if (this->m_x < 0)
 		this->m_x = 0;
-	if (this->m_y > LEVEL_HEIGHT)
-		this->m_y = 0;
+	if (this->m_y > LEVEL_HEIGHT - this->GetHeight()) {
+		//this->m_y = LEVEL_HEIGHT - this->GetHeight();
+		this->m_onGround = true;
+	}
+	else
+		this->m_onGround = false;
 	if (this->m_y < 0)
 		this->m_y = 0;
 
+	if (this->m_timer.isDone()) {
+		this->m_jumping = false;
+		this->m_timer.Stop();
+	}
+
 	// Gravity (bottom border of the screen considered as solid 'til Level is implemented)
-	if (!this->m_onGround && this->m_y < LEVEL_HEIGHT - this->GetHeight() && !this->m_jumping)
+	if (!this->m_onGround && !this->m_jumping)
 		this->m_vely = -JUMP_STRENGTH;
-	else
+	else if (!this->m_jumping)
 		this->m_vely = 0;
 
 	SDL_Delay(4);			// Need to find another way to slow instead of delay
@@ -73,8 +82,11 @@ void Player::MoveRight()
 
 void Player::Jump()
 {
-	/*this->m_vely += JUMP_STRENGTH;
-	this->jumping = true;*/
+	if (this->isOnGround() && !this->isJumping()) {
+		this->m_vely += JUMP_STRENGTH;
+		this->m_jumping = true;
+		this->m_timer.Start(500);
+	}
 }
 
 bool Player::isOnGround()

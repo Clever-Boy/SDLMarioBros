@@ -93,6 +93,8 @@ void Game::HandleInput(const Uint8 *keystate)
 		this->m_player->MoveLeft();
 	else if (keystate[SDL_SCANCODE_RIGHT])
 		this->m_player->MoveRight();
+	else if (keystate[SDL_SCANCODE_UP])
+		this->m_player->Jump();
 	else
 		this->m_player->Idle();
 }
