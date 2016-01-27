@@ -7,7 +7,8 @@ Player::Player()
 	this->m_sprite = NULL;
 	this->m_velx = 0;
 	this->m_vely = 0;
-	this->onGround = false;
+	this->m_onGround = false;
+	this->m_jumping = false;
 }
 
 Player::Player(Graphics* graph,int x, int y)
@@ -39,7 +40,7 @@ void Player::Update()
 		this->m_y = 0;
 
 	// Gravity (bottom border of the screen considered as solid 'til Level is implemented)
-	if (!this->onGround && this->m_y < LEVEL_HEIGHT - this->GetHeight() && !this->jumping)
+	if (!this->m_onGround && this->m_y < LEVEL_HEIGHT - this->GetHeight() && !this->m_jumping)
 		this->m_vely = -JUMP_STRENGTH;
 	else
 		this->m_vely = 0;
