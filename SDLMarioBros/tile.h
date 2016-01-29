@@ -11,9 +11,12 @@ public:
 	Tile();
 	Tile(int x, int y, Texture* tex,int value);
 	~Tile();
-	void Draw();
+	void Draw(Graphics* graph);
+	SDL_Rect GetOffsetFromValue(int value);
 
 private:
 	Texture* m_setTexture;
 	int m_value;
+	int m_x;
+	int m_y;
 };

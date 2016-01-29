@@ -24,6 +24,7 @@ public:
 	void RenderPresent();
 	void Clear();
 	void BlitTexture(SDL_Texture* texture, SDL_Rect* destRect);
+	void BlitTexture(SDL_Texture* texture, SDL_Rect* destRect, SDL_Rect* sourceRect);
 	
 private:
 	SDL_Window* m_window;

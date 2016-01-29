@@ -50,3 +50,8 @@ void Texture::Draw(Graphics* graph,SDL_Rect* destRect)
 {
 	graph->BlitTexture(this->m_texture, destRect);
 }
+
+void Texture::Draw(Graphics * graph, SDL_Rect * destRect, SDL_Rect * sourceRect)
+{
+	graph->BlitTexture(this->m_texture, destRect, sourceRect);
+}

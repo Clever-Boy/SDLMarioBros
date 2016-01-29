@@ -85,7 +85,7 @@ void Player::Jump()
 	if (this->isOnGround() && !this->isJumping()) {
 		this->m_vely += JUMP_STRENGTH;
 		this->m_jumping = true;
-		this->m_timer.Start(500);
+		this->m_timer.Start(400);
 	}
 }
 

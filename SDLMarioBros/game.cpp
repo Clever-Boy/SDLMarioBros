@@ -38,6 +38,10 @@ void Game::GameLoop()
 	camera.x = (m_player->GetX() + m_player->GetWidth() / 2) - SCREEN_WIDTH / 2;
 	camera.y = (m_player->GetY() + m_player->GetHeight() / 2) - SCREEN_HEIGHT / 2;
 
+	// FOR DEBUG ONLY : TO BE REMOVED
+	Texture* testTex = new Texture(this->m_graphics, "tilesets/global.png");
+	test = new Tile(0, 0, testTex, 1);
+
 	const Uint8* currentKeyState = NULL;
 	bool quit = false;
 	while (!quit)
@@ -63,6 +67,7 @@ void Game::Draw()
 	
 	if (this->m_player != NULL)
 		this->m_player->Draw(this->m_graphics,this->camera.x,this->camera.y);
+	test->Draw(this->m_graphics);
 
 	this->m_graphics->RenderPresent();
 }

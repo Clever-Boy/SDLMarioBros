@@ -20,7 +20,8 @@ public:
 	void Free();
 	void LoadTexture(Graphics* graph, std::string filePath);
 	void Draw(Graphics* graph, SDL_Rect* destRect);
-
+	void Draw(Graphics* graph, SDL_Rect* destRect, SDL_Rect* sourceRect);
+	
 private:
 	SDL_Texture* m_texture;
 	int m_width;

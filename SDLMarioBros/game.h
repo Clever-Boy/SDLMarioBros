@@ -6,6 +6,7 @@
 
 #include "graphics.h"
 #include "player.h"
+#include "tile.h"
 
 class Game
 {
@@ -22,4 +23,5 @@ private:
 	Graphics* m_graphics;
 	Player* m_player;
 	SDL_Rect camera;
+	Tile* test;
 };
