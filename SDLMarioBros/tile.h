@@ -13,9 +13,11 @@ public:
 	Tile();
 	Tile(int x, int y, Texture* tex,int value);
 	~Tile();
+	int GetValue();
 	void Draw(Graphics* graph);
 	void Draw(Graphics* graph, int camX, int camY);
 	SDL_Rect GetOffsetFromValue(int value);
+	bool CheckCollision(SDL_Rect sourceBox);
 
 private:
 	Texture* m_setTexture;

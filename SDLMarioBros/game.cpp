@@ -93,6 +93,18 @@ void Game::Update()
 	if (camera.y > LEVEL_HEIGHT - camera.h){
 		camera.y = LEVEL_HEIGHT - camera.h;
 	}
+	
+	SDL_Rect groundPlayerHitBox = { this->m_player->GetX(),this->m_player->GetY() + 1, this->m_player->GetWidth(), this->m_player->GetHeight() };
+	// Collision detection
+	for (int i = 0; i < TOTAL_TILES; ++i)
+	{
+		if (this->m_tileMap[i]->CheckCollision(groundPlayerHitBox) && this->m_tileMap[i]->GetValue() > 0) {
+			this->m_player->m_onGround = true;
+			break;
+		}
+		else
+			this->m_player->m_onGround = false;
+	}
 
 	this->m_player->Update();
 

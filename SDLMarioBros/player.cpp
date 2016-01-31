@@ -34,12 +34,7 @@ void Player::Update()
 		this->m_x = LEVEL_WIDTH - this->GetWidth();
 	if (this->m_x < 0)
 		this->m_x = 0;
-	if (this->m_y > LEVEL_HEIGHT - this->GetHeight()) {
-		//this->m_y = LEVEL_HEIGHT - this->GetHeight();
-		this->m_onGround = true;
-	}
-	else
-		this->m_onGround = false;
+	
 	if (this->m_y < 0)
 		this->m_y = 0;
 

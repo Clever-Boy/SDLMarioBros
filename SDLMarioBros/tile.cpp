@@ -16,6 +16,8 @@ Tile::Tile(int x, int y, Texture* tex,int value)
 	this->m_y = y;
 }
 
+int Tile::GetValue() { return this->m_value; }
+
 
 void Tile::Draw(Graphics* graph)
 {
@@ -48,4 +50,42 @@ SDL_Rect Tile::GetOffsetFromValue(int value)
 
 	return output;
 
+}
+
+bool Tile::CheckCollision(SDL_Rect sourceBox)
+{
+	int tile_l = this->m_x*TILE_WIDTH;
+	int tile_r = tile_l + TILE_WIDTH;
+	int tile_t = this->m_y*TILE_HEIGHT;
+	int tile_b = tile_t + TILE_HEIGHT;
+
+	int source_l = sourceBox.x;
+	int source_r = source_l + sourceBox.w;
+	int source_t = sourceBox.y;
+	int source_b = source_t + sourceBox.h;
+	
+
+	//If any of the sides from A are outside of B
+	if (source_b <= tile_t)
+	{
+		return false;
+	}
+
+	if (source_t >= tile_b)
+	{
+		return false;
+	}
+
+	if (source_r <= tile_l)
+	{
+		return false;
+	}
+
+	if (source_l >= tile_r)
+	{
+		return false;
+	}
+
+	//If none of the sides from A are outside B
+	return true;
 }
