@@ -26,5 +26,5 @@ private:
 	Graphics* m_graphics;
 	Player* m_player;
 	SDL_Rect camera;
-	Tile* m_tileMap[];
+	Tile* m_tileMap[TOTAL_TILES];
 };

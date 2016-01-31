@@ -24,6 +24,13 @@ void Tile::Draw(Graphics* graph)
 	m_setTexture->Draw(graph,&destRect,&sourceRect);
 }
 
+void Tile::Draw(Graphics* graph, int camX, int camY)
+{
+	SDL_Rect destRect = { this->m_x*TILE_WIDTH - camX,this->m_y*TILE_HEIGHT - camY,TILE_WIDTH,TILE_HEIGHT };
+	SDL_Rect sourceRect = this->GetOffsetFromValue(this->m_value);
+	m_setTexture->Draw(graph, &destRect, &sourceRect);
+}
+
 SDL_Rect Tile::GetOffsetFromValue(int value)
 {
 	SDL_Rect output;

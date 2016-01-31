@@ -40,9 +40,10 @@ void Game::GameLoop()
 
 	// FOR DEBUG ONLY : TO BE REMOVED
 	Texture* testTex = new Texture(this->m_graphics, "tilesets/global.png");
+	bool maploadSuccess = this->loadTileMap(testTex);
 
 	// If the map is load correctly, we launch the game loop
-	if (this->loadTileMap(testTex)) {
+	if (maploadSuccess) {
 		const Uint8* currentKeyState = NULL;
 		bool quit = false;
 		while (!quit)
@@ -72,7 +73,7 @@ void Game::Draw()
 	if (this->m_player != NULL)
 		this->m_player->Draw(this->m_graphics,this->camera.x,this->camera.y);
 	for (int i = 0; i < TOTAL_TILES; ++i)
-		this->m_tileMap[i]->Draw(this->m_graphics);
+		this->m_tileMap[i]->Draw(this->m_graphics, this->camera.x, this->camera.y);
 
 	this->m_graphics->RenderPresent();
 }

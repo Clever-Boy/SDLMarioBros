@@ -14,6 +14,7 @@ public:
 	Tile(int x, int y, Texture* tex,int value);
 	~Tile();
 	void Draw(Graphics* graph);
+	void Draw(Graphics* graph, int camX, int camY);
 	SDL_Rect GetOffsetFromValue(int value);
 
 private:
