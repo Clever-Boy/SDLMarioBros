@@ -5,6 +5,8 @@
 const int TILE_HEIGHT = 16;
 const int TILE_WIDTH = 16;
 
+const int TOTAL_TILES = (LEVEL_WIDTH / TILE_WIDTH) * (LEVEL_HEIGHT / TILE_HEIGHT);
+
 class Tile
 {
 public:

@@ -40,25 +40,29 @@ void Game::GameLoop()
 
 	// FOR DEBUG ONLY : TO BE REMOVED
 	Texture* testTex = new Texture(this->m_graphics, "tilesets/global.png");
-	test = new Tile(0, 0, testTex, 1);
 
-	const Uint8* currentKeyState = NULL;
-	bool quit = false;
-	while (!quit)
-	{
-		SDL_Event e;
-		while (SDL_PollEvent(&e) != 0)
+	// If the map is load correctly, we launch the game loop
+	if (this->loadTileMap(testTex)) {
+		const Uint8* currentKeyState = NULL;
+		bool quit = false;
+		while (!quit)
 		{
-			if (e.type == SDL_QUIT)
+			SDL_Event e;
+			while (SDL_PollEvent(&e) != 0)
 			{
-				quit = true;
+				if (e.type == SDL_QUIT)
+				{
+					quit = true;
+				}
 			}
+			currentKeyState = SDL_GetKeyboardState(NULL);
+			this->HandleInput(currentKeyState);
+			Update();
+			Draw();
 		}
-		currentKeyState = SDL_GetKeyboardState(NULL);
-		this->HandleInput(currentKeyState);
-		Update();
-		Draw();
 	}
+	else
+		printf("FATAL ERROR : Loading of the map failed");
 }
 
 void Game::Draw()
@@ -67,7 +71,8 @@ void Game::Draw()
 	
 	if (this->m_player != NULL)
 		this->m_player->Draw(this->m_graphics,this->camera.x,this->camera.y);
-	test->Draw(this->m_graphics);
+	for (int i = 0; i < TOTAL_TILES; ++i)
+		this->m_tileMap[i]->Draw(this->m_graphics);
 
 	this->m_graphics->RenderPresent();
 }
@@ -103,4 +108,55 @@ void Game::HandleInput(const Uint8 *keystate)
 	if (keystate[SDL_SCANCODE_UP])
 		this->m_player->Jump();
 
+}
+
+bool Game::loadTileMap(Texture* tileset)
+{
+	bool success = true;
+
+	std::ifstream map("1-1.map");
+	
+	if (!map)
+	{
+		printf("ERROR : Cannot read / open map file\n");
+		success = false;
+	}
+	else
+	{
+		int x = 0;
+		int y = 0;
+		for (int i = 0; i < TOTAL_TILES; ++i)
+		{
+			int tile_value = 0;
+
+			map >> tile_value;
+
+			if (map.fail())
+			{
+				printf("Error loading map: Unexpected end of file!\n");
+				success = false;
+				break;
+			}
+
+			if (tile_value >= 0 && tile_value < 62)
+				this->m_tileMap[i] = new Tile(x, y, tileset, tile_value);
+			else
+			{
+				printf("Error loading map: Invalid tile type at %d!\n", i);
+				success = false;
+				break;
+			}
+
+			x++;
+
+			if (x >= LEVEL_WIDTH / TILE_WIDTH) {
+				x = 0;
+				y++;
+			}
+		}
+	}
+
+	map.close();
+
+	return success;
 }
