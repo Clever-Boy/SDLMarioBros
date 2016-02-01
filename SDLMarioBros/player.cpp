@@ -66,7 +66,7 @@ void Player::Update(Tile* tileMap[])
 		this->m_timer.Stop();
 	}
 
-	// Gravity (bottom border of the screen considered as solid 'til Level is implemented)
+	// Gravity
 	if (!this->m_onGround && !this->m_jumping)
 		this->m_vely = -JUMP_STRENGTH;
 	else if (!this->m_jumping)

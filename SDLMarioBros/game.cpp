@@ -31,7 +31,7 @@ int Game::SDLInit()
 
 void Game::GameLoop()
 {
-	this->m_player = new Player(this->m_graphics, SCREEN_WIDTH / 2, 0);
+	this->m_player = new Player(this->m_graphics, 1, SCREEN_HEIGHT - TILE_HEIGHT*3);
 	
 	// Init the camera
 	this->camera = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
@@ -40,7 +40,7 @@ void Game::GameLoop()
 
 	// FOR DEBUG ONLY : TO BE REMOVED
 	Texture* testTex = new Texture(this->m_graphics, "tilesets/global.png");
-	bool maploadSuccess = this->loadTileMap(testTex);
+	bool maploadSuccess = this->LoadTileMap(testTex);
 
 	// If the map is load correctly, we launch the game loop
 	if (maploadSuccess) {
@@ -72,9 +72,10 @@ void Game::Draw()
 	
 	if (this->m_player != NULL)
 		this->m_player->Draw(this->m_graphics,this->camera.x,this->camera.y);
-	for (int i = 0; i < TOTAL_TILES; ++i)
-		this->m_tileMap[i]->Draw(this->m_graphics, this->camera.x, this->camera.y);
-
+	for (int i = 0; i < TOTAL_TILES; ++i) {
+		if (this->m_tileMap[i]->CheckCollision(this->camera))
+			this->m_tileMap[i]->Draw(this->m_graphics, this->camera.x, this->camera.y);
+	}
 	this->m_graphics->RenderPresent();
 }
 
@@ -111,7 +112,7 @@ void Game::HandleInput(const Uint8 *keystate)
 
 }
 
-bool Game::loadTileMap(Texture* tileset)
+bool Game::LoadTileMap(Texture* tileset)
 {
 	bool success = true;
 
