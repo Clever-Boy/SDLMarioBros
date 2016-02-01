@@ -16,13 +16,10 @@ public:
 	Player();
 	Player(Graphics* graph,int x, int y);
 	~Player();
-	void Update();
+	void Update(Tile* tilemap[]);
 	void Draw(Graphics* graph, int camX, int camY);
 	//void CheckCollision(Tile* tilemap[]);
 
-	// Move to private when CheckCollision is done
-	bool m_onGround;
-	
 	// Player's mouvements
 	void Idle();
 	void MoveLeft();
@@ -45,6 +42,7 @@ private:
 	int m_velx;
 	int m_vely;
 	bool m_jumping;
+	bool m_onGround;
 	Texture* m_sprite;
 	Timer m_timer;
 };

@@ -64,8 +64,6 @@ bool Tile::CheckCollision(SDL_Rect sourceBox)
 	int source_t = sourceBox.y;
 	int source_b = source_t + sourceBox.h;
 	
-
-	//If any of the sides from A are outside of B
 	if (source_b <= tile_t)
 	{
 		return false;
@@ -86,6 +84,5 @@ bool Tile::CheckCollision(SDL_Rect sourceBox)
 		return false;
 	}
 
-	//If none of the sides from A are outside B
 	return true;
 }

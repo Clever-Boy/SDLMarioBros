@@ -24,8 +24,31 @@ Player::~Player()
 	//this->m_sprite->Free();
 }
 
-void Player::Update()
+void Player::Update(Tile* tileMap[])
 {
+	// Collision detection
+	SDL_Rect groundPlayerHitBox = { this->m_x,this->m_y + 1, this->GetWidth(), this->GetHeight() };
+	for (int i = 0; i < TOTAL_TILES; ++i)
+	{
+		if (tileMap[i]->CheckCollision(groundPlayerHitBox) && tileMap[i]->GetValue() > 0) {
+			this->m_onGround = true;
+			break;
+		}
+		else
+			this->m_onGround = false;
+	}
+
+	if (this->m_velx > 0) {
+		groundPlayerHitBox = { this->m_x + 1,this->m_y - 2, this->GetWidth(), this->GetHeight() };
+		for (int i = 0; i < TOTAL_TILES; ++i)
+		{
+			if (tileMap[i]->CheckCollision(groundPlayerHitBox) && tileMap[i]->GetValue() > 0) {
+				this->m_velx = 0;
+				break;
+			}
+		}
+	}
+
 	this->m_x += m_velx;
 	this->m_y += m_vely;
 
