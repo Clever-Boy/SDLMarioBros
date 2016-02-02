@@ -9,6 +9,7 @@ Player::Player()
 	this->m_vely = 0;
 	this->m_onGround = false;
 	this->m_jumping = false;
+	this->m_pwrupState = PLAYER_SMALL;
 }
 
 Player::Player(Graphics* graph,int x, int y)
@@ -49,6 +50,32 @@ void Player::Update(Tile* tileMap[])
 		}
 	}
 
+	if (this->m_velx < 0) {
+		groundPlayerHitBox = { this->m_x - 1,this->m_y - 2, this->GetWidth(), this->GetHeight() };
+		for (int i = 0; i < TOTAL_TILES; ++i)
+		{
+			if (tileMap[i]->CheckCollision(groundPlayerHitBox) && tileMap[i]->GetValue() > 0) {
+				this->m_velx = 0;
+				break;
+			}
+		}
+	}
+
+	if (this->isJumping() && !this->isOnGround())
+	{
+		groundPlayerHitBox = { this->m_x,this->m_y - 1, this->GetWidth(), this->GetHeight() };
+		for (int i = 0; i < TOTAL_TILES; ++i)
+		{
+			if (tileMap[i]->CheckCollision(groundPlayerHitBox) && tileMap[i]->GetValue() > 0) {
+				this->m_jumping = false;
+				this->m_timer.Stop();
+				if (tileMap[i]->GetValue() == TILE_ITEM)
+					tileMap[i]->SetValue(28);
+				break;
+			}
+		}
+	}
+
 	this->m_x += m_velx;
 	this->m_y += m_vely;
 
@@ -72,7 +99,7 @@ void Player::Update(Tile* tileMap[])
 	else if (!this->m_jumping)
 		this->m_vely = 0;
 
-	SDL_Delay(4);			// Need to find another way to slow instead of delay
+	SDL_Delay(8);			// Need to find another way to slow instead of delay
 }
 
 void Player::Draw(Graphics* graph, int camX, int camY)

@@ -18,6 +18,11 @@ Tile::Tile(int x, int y, Texture* tex,int value)
 
 int Tile::GetValue() { return this->m_value; }
 
+void Tile::SetValue(int value)
+{
+	this->m_value = value;
+}
+
 
 void Tile::Draw(Graphics* graph)
 {
