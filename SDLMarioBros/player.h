@@ -7,7 +7,7 @@
 
 
 const int PLAYER_SPEED = 1;
-const int JUMP_STRENGTH = -1;
+const int JUMP_STRENGTH = -2;
 
 enum Player_PowerUpStates
 {

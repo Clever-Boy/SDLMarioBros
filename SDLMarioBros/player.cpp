@@ -51,7 +51,7 @@ void Player::Update(Tile* tileMap[])
 	}
 
 	if (this->m_velx < 0) {
-		groundPlayerHitBox = { this->m_x - 1,this->m_y - 2, this->GetWidth(), this->GetHeight() };
+		groundPlayerHitBox = { this->m_x - 1,this->m_y-2, this->GetWidth(), this->GetHeight() };
 		for (int i = 0; i < TOTAL_TILES; ++i)
 		{
 			if (tileMap[i]->CheckCollision(groundPlayerHitBox) && tileMap[i]->GetValue() > 0) {
@@ -63,7 +63,7 @@ void Player::Update(Tile* tileMap[])
 
 	if (this->isJumping() && !this->isOnGround())
 	{
-		groundPlayerHitBox = { this->m_x,this->m_y - 1, this->GetWidth(), this->GetHeight() };
+		groundPlayerHitBox = { this->m_x,this->m_y + JUMP_STRENGTH, this->GetWidth(), this->GetHeight() };
 		for (int i = 0; i < TOTAL_TILES; ++i)
 		{
 			if (tileMap[i]->CheckCollision(groundPlayerHitBox) && tileMap[i]->GetValue() > 0) {
@@ -130,7 +130,7 @@ void Player::Jump()
 	if (this->isOnGround() && !this->isJumping()) {
 		this->m_vely += JUMP_STRENGTH;
 		this->m_jumping = true;
-		this->m_timer.Start(400);
+		this->m_timer.Start(300);
 	}
 }
 

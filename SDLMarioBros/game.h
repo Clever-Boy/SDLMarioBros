@@ -9,7 +9,9 @@
 #include "graphics.h"
 #include "player.h"
 #include "tile.h"
-#include "item.h"
+#include "enemy.h"
+
+const int MAX_ENEMIES = 24;
 
 class Game
 {
@@ -28,4 +30,5 @@ private:
 	Player* m_player;
 	SDL_Rect camera;
 	Tile* m_tileMap[TOTAL_TILES];	
+	Enemy* m_enemies[MAX_ENEMIES];
 };
