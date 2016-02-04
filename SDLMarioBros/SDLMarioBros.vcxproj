@@ -146,6 +146,16 @@
     <ClInclude Include="tile.h" />
     <ClInclude Include="timer.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="sprites\enemies.png" />
+    <Image Include="sprites\goomba.png" />
+    <Image Include="sprites\items.png" />
+    <Image Include="sprites\mario.png" />
+    <Image Include="tilesets\global.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="levels\1-1.map" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

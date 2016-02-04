@@ -2,10 +2,11 @@
 
 Enemy::Enemy() {}
 
-Enemy::Enemy(int x, int y)
+Enemy::Enemy(int x, int y,Texture* tex)
 {
 	this->m_x = x;
 	this->m_y = y;
+	this->m_sprite = tex;
 }
 
 Enemy::~Enemy() {}
@@ -18,6 +19,12 @@ int Enemy::GetWidth()
 int Enemy::GetHeight()
 {
 	return this->m_sprite->GetHeight();
+}
+
+void Enemy::Draw(Graphics* graph)
+{
+	SDL_Rect destRect = { this->m_x,this->m_y,this->GetWidth(),this->GetHeight() };
+	this->m_sprite->Draw(graph, &destRect);
 }
 
 void Enemy::Update(Tile * tileMap[])

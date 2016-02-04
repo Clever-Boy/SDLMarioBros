@@ -13,6 +13,18 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Content">
+      <UniqueIdentifier>{17e2ec7e-c024-4c3b-91af-dc36fa0de717}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Content\sprites">
+      <UniqueIdentifier>{fe8157e9-04d9-4a0b-90b0-ce991f4569d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Content\tilesets">
+      <UniqueIdentifier>{85e1197d-c56e-488c-8690-7d9fb9dc30db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Content\levels">
+      <UniqueIdentifier>{f8bd259d-0fcd-4769-9974-fa0b80b0d3ed}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -68,5 +80,27 @@
     <ClInclude Include="enemy.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="sprites\enemies.png">
+      <Filter>Content\sprites</Filter>
+    </Image>
+    <Image Include="sprites\goomba.png">
+      <Filter>Content\sprites</Filter>
+    </Image>
+    <Image Include="sprites\items.png">
+      <Filter>Content\sprites</Filter>
+    </Image>
+    <Image Include="sprites\mario.png">
+      <Filter>Content\sprites</Filter>
+    </Image>
+    <Image Include="tilesets\global.png">
+      <Filter>Content\tilesets</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="levels\1-1.map">
+      <Filter>Content\levels</Filter>
+    </None>
   </ItemGroup>
 </Project>

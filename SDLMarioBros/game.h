@@ -23,7 +23,7 @@ public:
 	void Draw();		// Draw call for the graphics objet to render
 	void Update();		// Update call for the game logic 
 	void HandleInput(const Uint8 *keystate);
-	bool LoadTileMap(Texture* tileset);
+	bool LoadLevel(Texture* tileset,Texture* enemyTexture);
 
 private:
 	Graphics* m_graphics;

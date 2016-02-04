@@ -38,15 +38,16 @@ void Game::GameLoop()
 	camera.x = (m_player->GetX() + m_player->GetWidth() / 2) - SCREEN_WIDTH / 2;
 	camera.y = (m_player->GetY() + m_player->GetHeight() / 2) - SCREEN_HEIGHT / 2;
 		
-	bool maploadSuccess = false;
+	bool levelLoadSuccess = false;
 	Texture* tilesetTexture = new Texture(this->m_graphics, "tilesets/global.png");
+	Texture* enemyTexture = new Texture(this->m_graphics, "sprites/goomba.png");
 	if (tilesetTexture == NULL)
 		printf("ERROR : Cannot load tileset texture");
 	else
-		maploadSuccess = this->LoadTileMap(tilesetTexture);
+		levelLoadSuccess = this->LoadLevel(tilesetTexture,enemyTexture);
 
 	// If the map is load correctly, we launch the game loop
-	if (maploadSuccess) {
+	if (levelLoadSuccess) {
 		const Uint8* currentKeyState = NULL;
 		bool quit = false;
 		while (!quit)
@@ -78,6 +79,10 @@ void Game::Draw()
 	for (int i = 0; i < TOTAL_TILES; ++i) {
 		if (this->m_tileMap[i]->CheckCollision(this->camera))
 			this->m_tileMap[i]->Draw(this->m_graphics, this->camera.x, this->camera.y);
+	}
+	for (int i = 0; i < MAX_ENEMIES; ++i) {
+		if (this->m_enemies[i] != NULL)
+			this->m_enemies[i]->Draw(this->m_graphics);
 	}
 	
 	this->m_graphics->RenderPresent();
@@ -116,11 +121,11 @@ void Game::HandleInput(const Uint8 *keystate)
 
 }
 
-bool Game::LoadTileMap(Texture* tileset)
+bool Game::LoadLevel(Texture* tileset, Texture* enemyTexture)
 {
 	bool success = true;
 
-	std::ifstream map("levels/test.map");
+	std::ifstream map("levels/1-1.map");
 	
 	if (!map)
 	{
@@ -130,7 +135,7 @@ bool Game::LoadTileMap(Texture* tileset)
 	else
 	{
 		int x = 0;
-		int y = 0;
+		int y = 0;		
 		for (int i = 0; i < TOTAL_TILES; ++i)
 		{
 			int tile_value = 0;
@@ -145,7 +150,7 @@ bool Game::LoadTileMap(Texture* tileset)
 			}
 
 			if (tile_value >= 0)
-				this->m_tileMap[i] = new Tile(x, y, tileset, tile_value);
+				this->m_tileMap[i] = new Tile(x, y, tileset, tile_value);			
 			else
 			{
 				printf("Error loading map: Invalid tile type at %d!\n", i);

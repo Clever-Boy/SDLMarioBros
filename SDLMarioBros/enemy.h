@@ -7,13 +7,13 @@ class Enemy
 {
 public:
 	Enemy();
-	Enemy(int x, int y);
+	Enemy(int x, int y,Texture* tex);
 	~Enemy();
 	int GetX();
 	int GetY();
 	int GetWidth();
 	int GetHeight();
-	void Draw();
+	void Draw(Graphics* graph);
 	void Update(Tile* tileMap[]);
 
 private:
