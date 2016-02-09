@@ -145,6 +145,7 @@
     <ClInclude Include="texture.h" />
     <ClInclude Include="tile.h" />
     <ClInclude Include="timer.h" />
+    <ClInclude Include="util.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="sprites\enemies.png" />

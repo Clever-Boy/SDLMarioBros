@@ -27,7 +27,7 @@ Player::~Player()
 
 void Player::Update(Tile* tileMap[])
 {
-	// Collision detection
+	// Collision detection (to factorize into checkCollision function)
 	SDL_Rect groundPlayerHitBox = { this->m_x,this->m_y + 1, this->GetWidth(), this->GetHeight() };
 	for (int i = 0; i < TOTAL_TILES; ++i)
 	{

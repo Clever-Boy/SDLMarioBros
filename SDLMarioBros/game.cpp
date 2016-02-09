@@ -77,8 +77,8 @@ void Game::Draw()
 	if (this->m_player != NULL)
 		this->m_player->Draw(this->m_graphics,this->camera.x,this->camera.y);
 	for (int i = 0; i < TOTAL_TILES; ++i) {
-		if (this->m_tileMap[i]->CheckCollision(this->camera))
-			this->m_tileMap[i]->Draw(this->m_graphics, this->camera.x, this->camera.y);
+		if (this->m_content.tileMap[i]->CheckCollision(this->camera))
+			this->m_content.tileMap[i]->Draw(this->m_graphics, this->camera.x, this->camera.y);
 	}
 	for (int i = 0; i < MAX_ENEMIES; ++i) {
 		if (this->m_enemies[i] != NULL)
@@ -104,7 +104,7 @@ void Game::Update()
 		camera.y = LEVEL_HEIGHT - camera.h;
 	}
 
-	this->m_player->Update(this->m_tileMap);
+	this->m_player->Update(this->m_content.tileMap);
 
 }
 
@@ -125,6 +125,7 @@ bool Game::LoadLevel(Texture* tileset, Texture* enemyTexture)
 {
 	bool success = true;
 
+	// creating the stream to read the tile map
 	std::ifstream map("levels/1-1.map");
 	
 	if (!map)
@@ -150,7 +151,7 @@ bool Game::LoadLevel(Texture* tileset, Texture* enemyTexture)
 			}
 
 			if (tile_value >= 0)
-				this->m_tileMap[i] = new Tile(x, y, tileset, tile_value);			
+				this->m_content.tileMap[i] = new Tile(x, y, tileset, tile_value);			
 			else
 			{
 				printf("Error loading map: Invalid tile type at %d!\n", i);
@@ -168,6 +169,9 @@ bool Game::LoadLevel(Texture* tileset, Texture* enemyTexture)
 	}
 
 	map.close();
+
+
+	// Loads enemy data
 
 	return success;
 }

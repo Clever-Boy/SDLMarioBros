@@ -2,11 +2,11 @@
 
 Item::Item() { }
 
-Item::Item(int x, int y, int id)
+Item::Item(int x, int y, int id,Texture* tex)
 {
 	this->m_x = x;
 	this->m_y = y;
-	//this->m_texture =
+	this->m_texture = tex;
 	this->m_id = id;
 }
 
