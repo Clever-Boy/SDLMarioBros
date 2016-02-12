@@ -4,6 +4,7 @@
 #include "texture.h"
 #include "timer.h"
 #include "tile.h"
+#include "util.h"
 
 
 const int PLAYER_SPEED = 1;
@@ -24,7 +25,7 @@ public:
 	Player();
 	Player(Graphics* graph,int x, int y);
 	~Player();
-	void Update(Tile* tilemap[]);
+	void Update(LevelContent content);
 	void Draw(Graphics* graph, int camX, int camY);
 	//void CheckCollision(Tile* tilemap[]);
 

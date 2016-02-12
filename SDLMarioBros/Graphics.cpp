@@ -31,6 +31,7 @@ SDL_Texture * Graphics::LoadTexture(std::string filePath)
 {
 	SDL_Texture* outputTexture = NULL;
 
+	// If the image was previously load then
 	if (this->m_atlas.count(filePath) == 0)
 	{
 		SDL_Surface* tmpSurface = NULL;

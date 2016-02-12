@@ -104,7 +104,7 @@ void Game::Update()
 		camera.y = LEVEL_HEIGHT - camera.h;
 	}
 
-	this->m_player->Update(this->m_content.tileMap);
+	this->m_player->Update(this->m_content);
 
 }
 

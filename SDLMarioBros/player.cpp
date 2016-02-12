@@ -25,13 +25,13 @@ Player::~Player()
 	//this->m_sprite->Free();
 }
 
-void Player::Update(Tile* tileMap[])
+void Player::Update(LevelContent content)
 {
 	// Collision detection (to factorize into checkCollision function)
 	SDL_Rect groundPlayerHitBox = { this->m_x,this->m_y + 1, this->GetWidth(), this->GetHeight() };
 	for (int i = 0; i < TOTAL_TILES; ++i)
 	{
-		if (tileMap[i]->CheckCollision(groundPlayerHitBox) && tileMap[i]->GetValue() > 0) {
+		if (content.tileMap[i]->CheckCollision(groundPlayerHitBox) && content.tileMap[i]->GetValue() > 0) {
 			this->m_onGround = true;
 			break;
 		}
@@ -43,7 +43,7 @@ void Player::Update(Tile* tileMap[])
 		groundPlayerHitBox = { this->m_x + 1,this->m_y - 2, this->GetWidth(), this->GetHeight() };
 		for (int i = 0; i < TOTAL_TILES; ++i)
 		{
-			if (tileMap[i]->CheckCollision(groundPlayerHitBox) && tileMap[i]->GetValue() > 0) {
+			if (content.tileMap[i]->CheckCollision(groundPlayerHitBox) && content.tileMap[i]->GetValue() > 0) {
 				this->m_velx = 0;
 				break;
 			}
@@ -54,7 +54,7 @@ void Player::Update(Tile* tileMap[])
 		groundPlayerHitBox = { this->m_x - 1,this->m_y-2, this->GetWidth(), this->GetHeight() };
 		for (int i = 0; i < TOTAL_TILES; ++i)
 		{
-			if (tileMap[i]->CheckCollision(groundPlayerHitBox) && tileMap[i]->GetValue() > 0) {
+			if (content.tileMap[i]->CheckCollision(groundPlayerHitBox) && content.tileMap[i]->GetValue() > 0) {
 				this->m_velx = 0;
 				break;
 			}
@@ -66,12 +66,12 @@ void Player::Update(Tile* tileMap[])
 		groundPlayerHitBox = { this->m_x,this->m_y + JUMP_STRENGTH, this->GetWidth(), this->GetHeight() };
 		for (int i = 0; i < TOTAL_TILES; ++i)
 		{
-			if (tileMap[i]->CheckCollision(groundPlayerHitBox) && tileMap[i]->GetValue() > 0) {
+			if (content.tileMap[i]->CheckCollision(groundPlayerHitBox) && content.tileMap[i]->GetValue() > 0) {
 				this->m_jumping = false;
 				this->m_timer.Stop();
-				if (tileMap[i]->GetValue() == TILE_ITEM)
+				if (content.tileMap[i]->GetValue() == TILE_ITEM)
 				{
-					tileMap[i]->SetValue(28);
+					content.tileMap[i]->SetValue(28);
 					//content.items[curItem]= new Item(content.tileMap[i]->GetX(),content.tileMap[i]->GetY(),this->m_pwrupState);
 				}					
 				break;
