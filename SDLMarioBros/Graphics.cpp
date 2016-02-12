@@ -31,19 +31,25 @@ SDL_Texture * Graphics::LoadTexture(std::string filePath)
 {
 	SDL_Texture* outputTexture = NULL;
 
-	SDL_Surface* tmpSurface = NULL;
-	tmpSurface = IMG_Load(filePath.c_str());
-	if (tmpSurface == NULL)
-		printf("ERROR : Cannot load image %s into surface SDL_Error : %s", filePath, SDL_GetError());
-	else
-	{		
-		outputTexture = SDL_CreateTextureFromSurface(this->m_renderer, tmpSurface);
-		if (outputTexture == NULL)
-			printf("ERROR : Cannot create texture from surface SDL_Error : %s", SDL_GetError());
-		SDL_FreeSurface(tmpSurface);
-		tmpSurface = NULL;
+	if (this->m_atlas.count(filePath) == 0)
+	{
+		SDL_Surface* tmpSurface = NULL;
+		tmpSurface = IMG_Load(filePath.c_str());
+		if (tmpSurface == NULL)
+			printf("ERROR : Cannot load image %s into surface SDL_Error : %s\n", filePath, SDL_GetError());
+		else
+		{
+			outputTexture = SDL_CreateTextureFromSurface(this->m_renderer, tmpSurface);
+			if (outputTexture == NULL)
+				printf("ERROR : Cannot create texture from surface SDL_Error : %s\n", SDL_GetError());
+			SDL_FreeSurface(tmpSurface);
+			this->m_atlas[filePath] = outputTexture;
+			tmpSurface = NULL;
+			return this->m_atlas[filePath];
+		}
 	}
-	return outputTexture;
+	else
+		return this->m_atlas[filePath];
 }
 
 void Graphics::Clear() { SDL_RenderClear(this->m_renderer); }

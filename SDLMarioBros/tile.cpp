@@ -18,6 +18,16 @@ Tile::Tile(int x, int y, Texture* tex,int value)
 
 int Tile::GetValue() { return this->m_value; }
 
+int Tile::GetX()
+{
+	return this->m_x;
+}
+
+int Tile::GetY()
+{
+	return this->m_y;
+}
+
 void Tile::SetValue(int value)
 {
 	this->m_value = value;

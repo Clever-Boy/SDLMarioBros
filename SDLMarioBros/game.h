@@ -32,8 +32,7 @@ private:
 	Graphics* m_graphics;
 	Player* m_player;
 	SDL_Rect camera;
-	LevelContent m_content;
-	Tile* m_tileMap[TOTAL_TILES];	
+	LevelContent m_content;	
 	Enemy* m_enemies[MAX_ENEMIES];
 	Item* m_items[MAX_ITEMS];
 };

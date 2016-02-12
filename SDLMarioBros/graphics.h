@@ -3,6 +3,7 @@
 #include <stdio.h>
 
 #include <string>
+#include <map>
 
 #include <SDL2\SDL.h>
 #include <SDL2\SDL_image.h>
@@ -29,4 +30,5 @@ public:
 private:
 	SDL_Window* m_window;
 	SDL_Renderer* m_renderer;
+	std::map<std::string, SDL_Texture*> m_atlas;
 };

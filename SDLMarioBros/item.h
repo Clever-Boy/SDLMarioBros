@@ -15,6 +15,7 @@ class Item
 public:
 	Item();
 	Item(int x, int y, int id,Texture* tex);
+	Item(int x, int y, int id);
 	~Item();
 	void Draw(Graphics* graph);
 	int PickUp();	// Return the ID of the item picked

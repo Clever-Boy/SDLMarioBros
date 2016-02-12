@@ -15,6 +15,8 @@ public:
 	Tile(int x, int y, Texture* tex,int value);
 	~Tile();
 	int GetValue();
+	int GetX();
+	int GetY();
 	void SetValue(int value);
 	void Draw(Graphics* graph);
 	void Draw(Graphics* graph, int camX, int camY);

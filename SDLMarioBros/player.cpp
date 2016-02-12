@@ -70,7 +70,10 @@ void Player::Update(Tile* tileMap[])
 				this->m_jumping = false;
 				this->m_timer.Stop();
 				if (tileMap[i]->GetValue() == TILE_ITEM)
+				{
 					tileMap[i]->SetValue(28);
+					//content.items[curItem]= new Item(content.tileMap[i]->GetX(),content.tileMap[i]->GetY(),this->m_pwrupState);
+				}					
 				break;
 			}
 		}

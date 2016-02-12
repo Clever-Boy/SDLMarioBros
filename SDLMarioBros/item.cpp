@@ -10,6 +10,14 @@ Item::Item(int x, int y, int id,Texture* tex)
 	this->m_id = id;
 }
 
+Item::Item(int x, int y, int id)
+{
+	this->m_x = x;
+	this->m_y = y;	
+	this->m_id = id;
+	// this->m_texture = yolo;
+}
+
 Item::~Item() { }
 
 void Item::Draw(Graphics* graph)
