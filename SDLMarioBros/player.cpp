@@ -72,7 +72,8 @@ void Player::Update(LevelContent content)
 				if (content.tileMap[i]->GetValue() == TILE_ITEM)
 				{
 					content.tileMap[i]->SetValue(28);
-					//content.items[curItem]= new Item(content.tileMap[i]->GetX(),content.tileMap[i]->GetY(),this->m_pwrupState);
+					content.items.push_back(Item(content.tileMap[i]->GetX()*TILE_WIDTH, content.tileMap[i]->GetY()+1*TILE_HEIGHT,
+						this->m_pwrupState));
 				}					
 				break;
 			}

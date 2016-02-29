@@ -67,7 +67,7 @@ void Game::GameLoop()
 		}
 	}
 	else
-		printf("FATAL ERROR : Loading of the tilemap failed");
+		printf("ERROR : Loading of the tilemap failed");
 }
 
 void Game::Draw()
@@ -80,9 +80,13 @@ void Game::Draw()
 		if (this->m_content.tileMap[i]->CheckCollision(this->camera))
 			this->m_content.tileMap[i]->Draw(this->m_graphics, this->camera.x, this->camera.y);
 	}
-	for (int i = 0; i < MAX_ENEMIES; ++i) {
-		if (this->m_enemies[i] != NULL)
-			this->m_enemies[i]->Draw(this->m_graphics);
+	for (unsigned int i = 0; i < this->m_content.ennemies.size(); ++i)
+	{
+		this->m_content.ennemies.at(i).Draw(this->m_graphics);
+	}
+	for (unsigned int i = 0; i < this->m_content.items.size();  ++i)
+	{
+		this->m_content.items.at(i).Draw(this->m_graphics);
 	}
 	
 	this->m_graphics->RenderPresent();

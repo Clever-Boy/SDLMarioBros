@@ -15,7 +15,7 @@ Item::Item(int x, int y, int id)
 	this->m_x = x;
 	this->m_y = y;	
 	this->m_id = id;
-	// this->m_texture = yolo;
+	//this->m_texture = ;
 }
 
 Item::~Item() { }
