@@ -15,10 +15,13 @@ class Item
 public:
 	Item();
 	Item(int x, int y, int id,Texture* tex);
-	Item(int x, int y, int id);
+	Item(int x, int y, int id,Graphics* graph);
 	~Item();
-	void Draw(Graphics* graph);
+	void Draw(Graphics* graph, int camX, int camY);
 	int PickUp();	// Return the ID of the item picked
+	SDL_Rect GetRect();
+	int GetWidth();
+	int GetHeight();
 
 private:
 	Texture* m_texture;

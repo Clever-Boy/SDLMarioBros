@@ -1,5 +1,6 @@
 #include "player.h"
 
+
 Player::Player()
 {
 	this->m_x = 0;
@@ -25,7 +26,7 @@ Player::~Player()
 	//this->m_sprite->Free();
 }
 
-void Player::Update(LevelContent content)
+void Player::Update(LevelContent &content,Graphics* graph)
 {
 	// Collision detection (to factorize into checkCollision function)
 	SDL_Rect groundPlayerHitBox = { this->m_x,this->m_y + 1, this->GetWidth(), this->GetHeight() };
@@ -71,15 +72,26 @@ void Player::Update(LevelContent content)
 				this->m_timer.Stop();
 				if (content.tileMap[i]->GetValue() == TILE_ITEM)
 				{
+					content.items.emplace_back(content.tileMap[i]->GetX()*TILE_WIDTH, content.tileMap[i]->GetY() * TILE_HEIGHT - TILE_HEIGHT, this->m_pwrupState, graph);
 					content.tileMap[i]->SetValue(28);
-					content.items.push_back(Item(content.tileMap[i]->GetX()*TILE_WIDTH, content.tileMap[i]->GetY()+1*TILE_HEIGHT,
-						this->m_pwrupState));
+					
 				}					
 				break;
 			}
 		}
 	}
 
+	for (unsigned int i = 0; i < content.items.size(); i++)
+	{		
+		if (CheckCollision(this->GetRect(), content.items.at(i).GetRect()))
+		{
+			printf("Item picked up");
+			this->m_pwrupState = content.items.at(i).PickUp();
+			content.items.erase(content.items.begin() + i);
+			
+		}
+	}
+		
 	this->m_x += m_velx;
 	this->m_y += m_vely;
 
@@ -166,4 +178,10 @@ int Player::GetWidth()
 int Player::GetHeight()
 {
 	return this->m_sprite->GetHeight();
+}
+
+SDL_Rect  Player::GetRect()
+{
+	SDL_Rect output = { this->m_x,this->m_y,this->GetWidth(),this->GetHeight() };
+	return output;
 }

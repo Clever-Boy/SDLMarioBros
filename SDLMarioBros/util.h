@@ -2,6 +2,8 @@
 
 #include <vector>
 
+#include <SDL2\SDL.h>
+
 #include "item.h"
 #include "tile.h"
 #include "enemy.h"
@@ -16,3 +18,6 @@ struct LevelContent
 	std::vector<Enemy> ennemies;
 	std::vector<Item> items;
 };
+
+
+bool CheckCollision(SDL_Rect a, SDL_Rect b);

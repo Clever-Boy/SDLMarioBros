@@ -25,7 +25,7 @@ public:
 	Player();
 	Player(Graphics* graph,int x, int y);
 	~Player();
-	void Update(LevelContent content);
+	void Update(LevelContent &content, Graphics* graphics);
 	void Draw(Graphics* graph, int camX, int camY);
 	//void CheckCollision(Tile* tilemap[]);
 
@@ -44,6 +44,7 @@ public:
 	int GetY();
 	int GetWidth();
 	int GetHeight();
+	SDL_Rect GetRect();
 
 private:
 	int m_x;

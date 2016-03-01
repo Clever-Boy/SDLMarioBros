@@ -16,6 +16,9 @@ Graphics::Graphics()
 	}
 	else
 		printf("ERROR : Cannot create window SDL_Error : %s", SDL_GetError());
+	this->m_font = TTF_OpenFont("fonts/Pixel Emulator.ttf", 16);
+	if (this->m_font = NULL)
+		printf("ERROR : Cannot load global font");
 }
 
 Graphics::~Graphics()

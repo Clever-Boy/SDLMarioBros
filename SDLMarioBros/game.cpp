@@ -6,7 +6,8 @@ Game::Game()
 	if (this->SDLInit() == 0)
 	{
 		m_graphics = new Graphics();
-		this->GameLoop();
+		//this->m_content.items.emplace_back(32, 32, 0, this->m_graphics);
+		this->GameLoop();		
 	}		
 }
 
@@ -24,6 +25,10 @@ int Game::SDLInit()
 	}
 	if (IMG_Init(IMG_INIT_PNG) < 0) {
 		printf("Error : Cannot init SDL_image SDL_Error : %s", IMG_GetError());
+		return -1;
+	}
+	if (TTF_Init() < 0){
+		printf("Error : Cannot init SDL_TTF SDL_Error : %s", TTF_GetError());
 		return -1;
 	}
 	return 0;
@@ -84,9 +89,9 @@ void Game::Draw()
 	{
 		this->m_content.ennemies.at(i).Draw(this->m_graphics);
 	}
-	for (unsigned int i = 0; i < this->m_content.items.size();  ++i)
+	for (unsigned int i = 0; i < this->m_content.items.size();  i++)
 	{
-		this->m_content.items.at(i).Draw(this->m_graphics);
+		this->m_content.items.at(i).Draw(this->m_graphics,this->camera.x,this->camera.y);
 	}
 	
 	this->m_graphics->RenderPresent();
@@ -108,7 +113,7 @@ void Game::Update()
 		camera.y = LEVEL_HEIGHT - camera.h;
 	}
 
-	this->m_player->Update(this->m_content);
+	this->m_player->Update(this->m_content,this->m_graphics);
 
 }
 

@@ -7,6 +7,7 @@
 
 #include <SDL2\SDL.h>
 #include <SDL2\SDL_image.h>
+#include <SDL2\SDL_ttf.h>
 
 
 const int SCREEN_WIDTH = 256;
@@ -19,7 +20,7 @@ class Graphics
 {
 public:
 	Graphics();
-	~Graphics();
+	~Graphics();	
 	SDL_Renderer* GetRenderer();
 	SDL_Texture* LoadTexture(std::string filePath);	
 	void RenderPresent();
@@ -30,5 +31,6 @@ public:
 private:
 	SDL_Window* m_window;
 	SDL_Renderer* m_renderer;
+	TTF_Font* m_font;
 	std::map<std::string, SDL_Texture*> m_atlas;
 };
