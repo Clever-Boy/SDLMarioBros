@@ -61,7 +61,7 @@ void Player::Update(LevelContent &content,Graphics* graph)
 			}
 		}
 	}
-
+		
 	if (this->isJumping() && !this->isOnGround())
 	{
 		groundPlayerHitBox = { this->m_x,this->m_y + JUMP_STRENGTH, this->GetWidth(), this->GetHeight() };
@@ -70,6 +70,7 @@ void Player::Update(LevelContent &content,Graphics* graph)
 			if (content.tileMap[i]->CheckCollision(groundPlayerHitBox) && content.tileMap[i]->GetValue() > 0) {
 				this->m_jumping = false;
 				this->m_timer.Stop();
+				// See if this can be moved to game class 
 				if (content.tileMap[i]->GetValue() == TILE_ITEM)
 				{
 					content.items.emplace_back(content.tileMap[i]->GetX()*TILE_WIDTH, content.tileMap[i]->GetY() * TILE_HEIGHT - TILE_HEIGHT, this->m_pwrupState, graph);
@@ -81,6 +82,7 @@ void Player::Update(LevelContent &content,Graphics* graph)
 		}
 	}
 
+	// See if this can be moved to game class 
 	for (unsigned int i = 0; i < content.items.size(); i++)
 	{		
 		if (CheckCollision(this->GetRect(), content.items.at(i).GetRect()))
@@ -88,6 +90,7 @@ void Player::Update(LevelContent &content,Graphics* graph)
 			printf("Player : Item picked up\n");
 			this->m_pwrupState = content.items.at(i).PickUp();
 			content.items.erase(content.items.begin() + i);
+			this->m_score += 1000;
 			
 		}
 	}
@@ -178,6 +181,11 @@ int Player::GetWidth()
 int Player::GetHeight()
 {
 	return this->m_sprite->GetHeight();
+}
+
+int Player::GetScore()
+{
+	return this->m_score;
 }
 
 SDL_Rect  Player::GetRect()

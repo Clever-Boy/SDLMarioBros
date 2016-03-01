@@ -136,6 +136,7 @@
     <ClCompile Include="texture.cpp" />
     <ClCompile Include="tile.cpp" />
     <ClCompile Include="timer.cpp" />
+    <ClCompile Include="uimanager.cpp" />
     <ClCompile Include="util.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -148,6 +149,7 @@
     <ClInclude Include="texture.h" />
     <ClInclude Include="tile.h" />
     <ClInclude Include="timer.h" />
+    <ClInclude Include="uimanager.h" />
     <ClInclude Include="util.h" />
   </ItemGroup>
   <ItemGroup>

@@ -51,3 +51,8 @@ bool Timer::isDone()
 	else
 		return false;
 }
+
+int Timer::GetCurrentTime()
+{
+	return (int) (this->m_timeEnd - SDL_GetTicks()) / 1000;
+}

@@ -44,6 +44,7 @@ public:
 	int GetY();
 	int GetWidth();
 	int GetHeight();
+	int GetScore();
 	SDL_Rect GetRect();
 
 private:
@@ -56,4 +57,5 @@ private:
 	int m_pwrupState;
 	Texture* m_sprite;
 	Timer m_timer;
+	int m_score = 0;
 };

@@ -12,6 +12,7 @@
 #include "enemy.h"
 #include "item.h"
 #include "util.h"
+#include "uimanager.h"
 
 
 class Game
@@ -25,10 +26,13 @@ public:
 	void Update();		// Update call for the game logic 
 	void HandleInput(const Uint8 *keystate);
 	bool LoadLevel(Texture* tileset,Texture* enemyTexture);
+	void UIInit();
 
 private:
 	Graphics* m_graphics;
 	Player* m_player;
 	SDL_Rect camera;
-	LevelContent m_content;		
+	LevelContent m_content;
+	UIManager m_uimanager;
+	Timer m_leveltimer;
 };

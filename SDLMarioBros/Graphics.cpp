@@ -16,9 +16,12 @@ Graphics::Graphics()
 	}
 	else
 		printf("ERROR : Cannot create window SDL_Error : %s", SDL_GetError());
-	this->m_font = TTF_OpenFont("fonts/Pixel Emulator.ttf", 16);
-	if (this->m_font = NULL)
+	this->m_font = TTF_OpenFont("fonts/Pixel Emulator.otf", 8);
+	if (this->m_font == NULL)
 		printf("ERROR : Cannot load global font");
+	else
+		printf("WORK");
+	
 }
 
 Graphics::~Graphics()
@@ -58,7 +61,7 @@ SDL_Texture * Graphics::LoadTexture(std::string filePath)
 
 SDL_Texture * Graphics::LoadTextureFromText(std::string text)
 {
-	SDL_Color color = { 255,255,255,255 };
+	SDL_Color color = { 255,255,255};
 	SDL_Surface* tmpSurface = TTF_RenderText_Solid(this->m_font, text.c_str(), color);
 	SDL_Texture* output = NULL;
 	if (tmpSurface == NULL)

@@ -12,6 +12,7 @@ public:
 	void UnPause();
 	void Stop();
 	bool isDone();
+	int GetCurrentTime();
 
 private:
 	bool m_enabled;
