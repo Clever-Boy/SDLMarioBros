@@ -19,6 +19,7 @@ public:
 	int GetHeight();
 	void Free();
 	void LoadTexture(Graphics* graph, std::string filePath);
+	void LoadTextureFromText(Graphics* graph, std::string text);
 	void Draw(Graphics* graph, SDL_Rect* destRect);
 	void Draw(Graphics* graph, SDL_Rect* destRect, SDL_Rect* sourceRect);
 	
