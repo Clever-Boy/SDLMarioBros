@@ -23,10 +23,11 @@ public:
 	~Graphics();	
 	SDL_Renderer* GetRenderer();
 	SDL_Texture* LoadTexture(std::string filePath);	
+	SDL_Texture* LoadTextureFromText(std::string text);	
 	void RenderPresent();
 	void Clear();
 	void BlitTexture(SDL_Texture* texture, SDL_Rect* destRect);
-	void BlitTexture(SDL_Texture* texture, SDL_Rect* destRect, SDL_Rect* sourceRect);
+	void BlitTexture(SDL_Texture* texture, SDL_Rect* destRect, SDL_Rect* sourceRect);	
 	
 private:
 	SDL_Window* m_window;

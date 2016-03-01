@@ -85,7 +85,7 @@ void Player::Update(LevelContent &content,Graphics* graph)
 	{		
 		if (CheckCollision(this->GetRect(), content.items.at(i).GetRect()))
 		{
-			printf("Item picked up");
+			printf("Player : Item picked up\n");
 			this->m_pwrupState = content.items.at(i).PickUp();
 			content.items.erase(content.items.begin() + i);
 			

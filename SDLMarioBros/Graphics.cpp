@@ -56,6 +56,24 @@ SDL_Texture * Graphics::LoadTexture(std::string filePath)
 		return this->m_atlas[filePath];
 }
 
+SDL_Texture * Graphics::LoadTextureFromText(std::string text)
+{
+	SDL_Color color = { 255,255,255,255 };
+	SDL_Surface* tmpSurface = TTF_RenderText_Solid(this->m_font, text.c_str(), color);
+	SDL_Texture* output = NULL;
+	if (tmpSurface == NULL)
+	{
+		printf("ERROR : Cannot create surface from text SDL_Error : %s", SDL_GetError());
+	}
+	else
+	{
+		output = SDL_CreateTextureFromSurface(this->m_renderer, tmpSurface);
+		if (output == NULL)
+			printf("ERROR : Cannot create texture from surface SDL_Error : %s", SDL_GetError());
+	}
+	return output;
+}
+
 void Graphics::Clear() { SDL_RenderClear(this->m_renderer); }
 
 void Graphics::RenderPresent() { SDL_RenderPresent(this->m_renderer); }

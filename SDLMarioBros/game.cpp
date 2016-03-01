@@ -6,7 +6,6 @@ Game::Game()
 	if (this->SDLInit() == 0)
 	{
 		m_graphics = new Graphics();
-		//this->m_content.items.emplace_back(32, 32, 0, this->m_graphics);
 		this->GameLoop();		
 	}		
 }
