@@ -13,8 +13,6 @@
 #include "item.h"
 #include "util.h"
 
-const int MAX_ENEMIES = 24;
-const int MAX_ITEMS = 24;
 
 class Game
 {
@@ -32,7 +30,5 @@ private:
 	Graphics* m_graphics;
 	Player* m_player;
 	SDL_Rect camera;
-	LevelContent m_content;	
-	Enemy* m_enemies[MAX_ENEMIES];
-	Item* m_items[MAX_ITEMS];
+	LevelContent m_content;		
 };
