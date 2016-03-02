@@ -2,12 +2,15 @@
 
 #include "texture.h"
 
+const int ITEM_WIDTH = 16;
+const int ITEM_HEIGHT = 16;
+
 enum Item_ID
 {
+	ITEM_COIN,
 	ITEM_MUSHROOM,
 	ITEM_FLOWER,
-	ITEM_STAR,
-	ITEM_COIN
+	ITEM_STAR,	
 };
 
 class Item

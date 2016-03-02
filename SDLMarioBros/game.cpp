@@ -5,7 +5,7 @@ Game::Game()
 	printf("DEBUG : Creating instance of Game\n");
 	if (this->SDLInit() == 0)
 	{
-		m_graphics = new Graphics();		
+		m_graphics = new Graphics();	
 		this->GameLoop();		
 	}		
 }
@@ -89,7 +89,7 @@ void Game::Draw()
 	}
 	for (unsigned int i = 0; i < this->m_content.ennemies.size(); ++i)
 	{
-		this->m_content.ennemies.at(i).Draw(this->m_graphics);
+		this->m_content.ennemies.at(i).Draw(this->m_graphics, this->camera.x, this->camera.y);
 	}
 	for (unsigned int i = 0; i < this->m_content.items.size();  i++)
 	{
@@ -117,6 +117,11 @@ void Game::Update()
 	}
 
 	this->m_player->Update(this->m_content,this->m_graphics);
+
+	/*for (unsigned int i = 0; i < this->m_content.ennemies.size(); ++i)
+	{
+		this->m_content.ennemies.at(i).Update(this->m_content.tileMap);
+	}*/
 
 	this->m_uimanager.EditText(std::to_string(this->m_player->GetScore()), "score");
 	this->m_uimanager.EditText(std::to_string(this->m_leveltimer.GetCurrentTime()), "time");
@@ -165,9 +170,13 @@ bool Game::LoadLevel(Texture* tileset, Texture* enemyTexture)
 				success = false;
 				break;
 			}
-
-			if (tile_value >= 0)
-				this->m_content.tileMap[i] = new Tile(x, y, tileset, tile_value);			
+			if (tile_value >= 0  && tile_value < 999)
+				this->m_content.tileMap[i] = new Tile(x, y, tileset, tile_value);
+			else if (tile_value == 999)
+			{
+				this->m_content.ennemies.emplace_back(x*TILE_WIDTH, y*TILE_HEIGHT, this->m_graphics);
+				this->m_content.tileMap[i] = new Tile(x, y, tileset, 0);
+			}
 			else
 			{
 				printf("Error loading map: Invalid tile type at %d!\n", i);

@@ -7,6 +7,7 @@ const int TILE_WIDTH = 16;
 const int TOTAL_TILES = (LEVEL_WIDTH / TILE_WIDTH) * (LEVEL_HEIGHT / TILE_HEIGHT);
 
 const int TILE_ITEM = 25;
+const int TILE_COIN = 26;
 
 class Tile
 {

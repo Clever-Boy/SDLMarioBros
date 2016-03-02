@@ -73,10 +73,15 @@ void Player::Update(LevelContent &content,Graphics* graph)
 				// See if this can be moved to game class 
 				if (content.tileMap[i]->GetValue() == TILE_ITEM)
 				{
-					content.items.emplace_back(content.tileMap[i]->GetX()*TILE_WIDTH, content.tileMap[i]->GetY() * TILE_HEIGHT - TILE_HEIGHT, this->m_pwrupState, graph);
+					content.items.emplace_back(content.tileMap[i]->GetX()*TILE_WIDTH, content.tileMap[i]->GetY() * TILE_HEIGHT - TILE_HEIGHT, this->m_pwrupState+1, graph);
 					content.tileMap[i]->SetValue(28);
 					
-				}					
+				}
+				else if (content.tileMap[i]->GetValue() == TILE_COIN)
+				{
+					content.tileMap[i]->SetValue(28);
+					this->m_score += 200;
+				}
 				break;
 			}
 		}
@@ -88,10 +93,9 @@ void Player::Update(LevelContent &content,Graphics* graph)
 		if (CheckCollision(this->GetRect(), content.items.at(i).GetRect()))
 		{
 			printf("Player : Item picked up\n");
-			this->m_pwrupState = content.items.at(i).PickUp();
+			this->m_pwrupState= content.items.at(i).PickUp();
 			content.items.erase(content.items.begin() + i);
-			this->m_score += 1000;
-			
+			this->m_score += 1000;			
 		}
 	}
 		
