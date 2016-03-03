@@ -18,6 +18,16 @@ Enemy::Enemy(int x, int y, Graphics * graph)
 
 Enemy::~Enemy() {}
 
+int Enemy::GetX()
+{
+	return this->m_x;
+}
+
+int Enemy::GetY()
+{
+	return this->m_y;
+}
+
 int Enemy::GetWidth()
 {
 	return this->m_sprite->GetWidth();
@@ -26,6 +36,12 @@ int Enemy::GetWidth()
 int Enemy::GetHeight()
 {
 	return this->m_sprite->GetHeight();
+}
+
+SDL_Rect Enemy::GetRect()
+{
+	SDL_Rect output = { this->GetX(), this->GetY(), this->GetWidth(), this->GetHeight() };
+	return output;
 }
 
 void Enemy::Draw(Graphics* graph,int camX, int camY)

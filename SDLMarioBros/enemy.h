@@ -14,6 +14,7 @@ public:
 	int GetY();
 	int GetWidth();
 	int GetHeight();
+	SDL_Rect GetRect();
 	void Draw(Graphics* graph, int camX, int camY);
 	void Update(Tile* tileMap[]);
 

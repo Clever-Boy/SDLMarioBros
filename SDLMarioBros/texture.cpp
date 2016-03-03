@@ -46,6 +46,12 @@ void Texture::LoadTexture(Graphics* graph, std::string filePath)
 	SDL_QueryTexture(this->m_texture, (Uint32*)SDL_PIXELFORMAT_UNKNOWN, (int*)SDL_TEXTUREACCESS_STATIC, &this->m_width, &this->m_height);
 }
 
+void Texture::LoadTextureFromText(Graphics * graph, std::string text)
+{
+	this->m_texture=graph->LoadTextureFromText(text);
+	SDL_QueryTexture(this->m_texture, (Uint32*)SDL_PIXELFORMAT_UNKNOWN, (int*)SDL_TEXTUREACCESS_STATIC, &this->m_width, &this->m_height);
+}
+
 void Texture::Draw(Graphics* graph,SDL_Rect* destRect)
 {
 	graph->BlitTexture(this->m_texture, destRect);

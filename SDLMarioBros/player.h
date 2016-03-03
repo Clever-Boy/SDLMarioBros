@@ -47,6 +47,8 @@ public:
 	int GetScore();
 	SDL_Rect GetRect();
 
+	SDL_Rect GetOffset(int pwrup);
+
 private:
 	int m_x;
 	int m_y;

@@ -18,7 +18,7 @@ Player::Player(Graphics* graph,int x, int y)
 	Player();
 	this->m_x = x;
 	this->m_y = y;
-	this->m_sprite = new Texture(graph, "sprites/mario.png");
+	this->m_sprite = new Texture(graph, "sprites/mariosheet.png");
 }
 
 Player::~Player()
@@ -128,8 +128,9 @@ void Player::Update(LevelContent &content,Graphics* graph)
 void Player::Draw(Graphics* graph, int camX, int camY)
 {
 	if (m_sprite != NULL) {
-		SDL_Rect destRect = { this->m_x - camX, this->m_y - camY,this->m_sprite->GetWidth(), this->m_sprite->GetHeight() };
-		this->m_sprite->Draw(graph, &destRect);
+		SDL_Rect sourceRect = GetOffset(this->m_pwrupState);
+		SDL_Rect destRect = { this->m_x - camX, this->m_y - camY,sourceRect.w, sourceRect.h };
+		this->m_sprite->Draw(graph, &destRect,&sourceRect);
 	}
 }
 
@@ -179,12 +180,12 @@ int Player::GetY()
 
 int Player::GetWidth()
 {
-	return this->m_sprite->GetWidth();
+	return this->GetOffset(this->m_pwrupState).w;
 }
 
 int Player::GetHeight()
 {
-	return this->m_sprite->GetHeight();
+	return this->GetOffset(this->m_pwrupState).h;
 }
 
 int Player::GetScore()
@@ -195,5 +196,33 @@ int Player::GetScore()
 SDL_Rect  Player::GetRect()
 {
 	SDL_Rect output = { this->m_x,this->m_y,this->GetWidth(),this->GetHeight() };
+	return output;
+}
+
+SDL_Rect Player::GetOffset(int pwrup)
+{
+	SDL_Rect output;
+
+	switch (pwrup)
+	{
+	case PLAYER_SMALL:
+		output.w = 16;
+		output.h = 16;
+		output.x = 0;
+		output.y = 0;
+		break;
+	case PLAYER_GRAND:
+		output.w = 16;
+		output.h = 32;
+		output.x = 0;
+		output.y = 16;
+		break;
+	default:
+		output.w = 16;
+		output.h = 32;
+		output.x = 0;
+		output.y = 16;
+	}
+
 	return output;
 }
