@@ -28,6 +28,12 @@ int Tile::GetY()
 	return this->m_y;
 }
 
+SDL_Rect Tile::GetRect()
+{
+	SDL_Rect output = { this->m_x * TILE_WIDTH, this->m_y * TILE_HEIGHT, TILE_WIDTH, TILE_HEIGHT };
+	return output;
+}
+
 void Tile::SetValue(int value)
 {
 	this->m_value = value;

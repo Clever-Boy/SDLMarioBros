@@ -19,8 +19,6 @@ Graphics::Graphics()
 	this->m_font = TTF_OpenFont("fonts/Pixel Emulator.otf", 8);
 	if (this->m_font == NULL)
 		printf("ERROR : Cannot load global font");
-	else
-		printf("WORK");
 	
 }
 

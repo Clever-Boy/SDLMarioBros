@@ -118,10 +118,10 @@ void Game::Update()
 
 	this->m_player->Update(this->m_content,this->m_graphics);
 
-	/*for (unsigned int i = 0; i < this->m_content.ennemies.size(); ++i)
+	for (unsigned int i = 0; i < this->m_content.ennemies.size(); ++i)
 	{
 		this->m_content.ennemies.at(i).Update(this->m_content.tileMap);
-	}*/
+	}
 
 	this->m_uimanager.EditText(std::to_string(this->m_player->GetScore()), "score");
 	this->m_uimanager.EditText(std::to_string(this->m_leveltimer.GetCurrentTime()), "time");

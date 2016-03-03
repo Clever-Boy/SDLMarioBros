@@ -18,6 +18,7 @@ public:
 	int GetValue();
 	int GetX();
 	int GetY();
+	SDL_Rect GetRect();
 	void SetValue(int value);
 	void Draw(Graphics* graph);
 	void Draw(Graphics* graph, int camX, int camY);

@@ -29,7 +29,7 @@ Player::~Player()
 void Player::Update(LevelContent &content,Graphics* graph)
 {
 	// Collision detection (to factorize into checkCollision function)
-	SDL_Rect groundPlayerHitBox = { this->m_x,this->m_y + 1, this->GetWidth(), this->GetHeight() };
+	SDL_Rect groundPlayerHitBox = { this->m_x,this->m_y + 3, this->GetWidth(), this->GetHeight() };
 	for (int i = 0; i < TOTAL_TILES; ++i)
 	{
 		if (content.tileMap[i]->CheckCollision(groundPlayerHitBox) && content.tileMap[i]->GetValue() > 0) {
@@ -93,6 +93,8 @@ void Player::Update(LevelContent &content,Graphics* graph)
 		if (CheckCollision(this->GetRect(), content.items.at(i).GetRect()))
 		{
 			printf("Player : Item picked up\n");
+			if (this->m_pwrupState == PLAYER_SMALL)
+				this->m_y -= 16;
 			this->m_pwrupState= content.items.at(i).PickUp();
 			content.items.erase(content.items.begin() + i);
 			this->m_score += 1000;			

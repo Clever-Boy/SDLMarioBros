@@ -21,7 +21,7 @@ public:
 private:
 	int m_x;
 	int m_y;
-	int m_velx;
-	int m_vely;
+	int m_velx = -1;
+	int m_vely = 0;
 	Texture* m_sprite;
 };
