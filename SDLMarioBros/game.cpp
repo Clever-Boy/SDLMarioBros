@@ -5,7 +5,8 @@ Game::Game()
 	printf("DEBUG : Creating instance of Game\n");
 	if (this->SDLInit() == 0)
 	{
-		m_graphics = new Graphics();	
+		m_graphics = new Graphics();
+		m_sound = new Sound();
 		this->GameLoop();		
 	}		
 }
@@ -30,6 +31,12 @@ int Game::SDLInit()
 		printf("Error : Cannot init SDL_TTF SDL_Error : %s", TTF_GetError());
 		return -1;
 	}
+	//Initialize SDL_mixer	
+	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
+	{
+		printf("Error : Cannot init SDL_Mixer SDL_mixer Error: %s\n", Mix_GetError());
+		return -1;
+	}
 	return 0;
 }
 
@@ -37,6 +44,7 @@ void Game::GameLoop()
 {
 	this->m_player = new Player(this->m_graphics, 1, SCREEN_HEIGHT - TILE_HEIGHT*3);
 	
+	SoundInit();
 	UIInit();
 	this->m_leveltimer.Start(400000);
 		
@@ -138,7 +146,7 @@ void Game::HandleInput(const Uint8 *keystate)
 	else
 		this->m_player->Idle();
 	if (keystate[SDL_SCANCODE_UP])
-		this->m_player->Jump();
+		this->m_player->Jump();	
 
 }
 
@@ -209,4 +217,9 @@ void Game::UIInit()
 	this->m_uimanager.AddText(this->m_graphics, "000", SCREEN_WIDTH - 22 - (4 * 8), 16, "time");
 	this->m_uimanager.AddText(this->m_graphics, "World", SCREEN_WIDTH - 48 - (9 * 8), 8, "worldlabel");
 	this->m_uimanager.AddText(this->m_graphics, "1-1", SCREEN_WIDTH - 48 - (8 * 8), 16, "world");
+}
+
+void Game::SoundInit()
+{
+	
 }

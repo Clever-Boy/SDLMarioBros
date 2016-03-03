@@ -14,6 +14,7 @@
 #include "item.h"
 #include "util.h"
 #include "uimanager.h"
+#include "sound.h"
 
 
 class Game
@@ -28,9 +29,11 @@ public:
 	void HandleInput(const Uint8 *keystate);
 	bool LoadLevel(Texture* tileset,Texture* enemyTexture);
 	void UIInit();
+	void SoundInit();
 
 private:
 	Graphics* m_graphics;
+	Sound* m_sound;
 	Player* m_player;
 	SDL_Rect camera;
 	LevelContent m_content;
