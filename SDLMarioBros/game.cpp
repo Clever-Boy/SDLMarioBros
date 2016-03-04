@@ -135,6 +135,11 @@ void Game::Update()
 	this->m_uimanager.EditText(std::to_string(this->m_leveltimer.GetCurrentTime()), "time");
 	this->m_uimanager.Update(this->m_graphics);
 
+	/*if (Mix_PlayingMusic() == 0)
+	{
+		this->m_sound->PlayMusic();
+	}*/
+
 }
 
 void Game::HandleInput(const Uint8 *keystate)
@@ -145,8 +150,9 @@ void Game::HandleInput(const Uint8 *keystate)
 		this->m_player->MoveRight();
 	else
 		this->m_player->Idle();
-	if (keystate[SDL_SCANCODE_UP])
-		this->m_player->Jump();	
+	if (keystate[SDL_SCANCODE_UP]) {
+		this->m_player->Jump(this->m_sound);		
+	}
 
 }
 
@@ -200,12 +206,7 @@ bool Game::LoadLevel(Texture* tileset, Texture* enemyTexture)
 			}
 		}
 	}
-
 	map.close();
-
-
-	// Loads enemy data
-
 	return success;
 }
 
@@ -221,5 +222,8 @@ void Game::UIInit()
 
 void Game::SoundInit()
 {
-	
+	//this->m_sound->LoadMusic("sounds/main-theme.wav");
+	this->m_sound->AddSound("sounds/coin.wav", "coin");
+	this->m_sound->AddSound("sounds/pwruppop.wav", "uppop");
+	this->m_sound->AddSound("sounds/jump.wav", "jump");
 }

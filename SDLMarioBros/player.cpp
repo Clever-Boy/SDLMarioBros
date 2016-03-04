@@ -151,12 +151,13 @@ void Player::MoveRight()
 	this->m_velx = PLAYER_SPEED;
 }
 
-void Player::Jump()
+void Player::Jump(Sound* sound)
 {
 	if (this->isOnGround() && !this->isJumping()) {
 		this->m_vely += JUMP_STRENGTH;
 		this->m_jumping = true;
 		this->m_timer.Start(300);
+		sound->PlaySound("jump");
 	}
 }
 

@@ -5,6 +5,7 @@
 #include "timer.h"
 #include "tile.h"
 #include "util.h"
+#include "sound.h"
 
 
 const int PLAYER_SPEED = 1;
@@ -33,7 +34,7 @@ public:
 	void Idle();
 	void MoveLeft();
 	void MoveRight();
-	void Jump();
+	void Jump(Sound* sound);
 
 	// Player's States
 	bool isOnGround();
