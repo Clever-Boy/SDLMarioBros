@@ -52,9 +52,11 @@ void Enemy::Draw(Graphics* graph,int camX, int camY)
 
 void Enemy::Update(Tile * tileMap[])
 {
-	this->m_x += this->m_velx;
-	this->m_y += this->m_vely;
-
+	if (this->m_x >= 0 && this->m_x <= LEVEL_WIDTH)
+	{
+		this->m_x += this->m_velx;
+		this->m_y += this->m_vely;
+	}
 	SDL_Rect leftHitBox = this->GetRect();
 	leftHitBox.x = leftHitBox.x - 1;
 	leftHitBox.y = leftHitBox.y;
@@ -65,15 +67,22 @@ void Enemy::Update(Tile * tileMap[])
 
 	for (int i = 0; i < TOTAL_TILES; ++i)
 	{
-		if (tileMap[i]->CheckCollision(leftHitBox) && tileMap[i]->GetValue()!= 0 ||
-			leftHitBox.x < 0 )
+		if (leftHitBox.x <= 0)
+		{
+			//printf("Ennemy : Left Border detected\n");
+			this->m_velx = 1;			
+		}
+		else if (tileMap[i]->CheckCollision(leftHitBox) && tileMap[i]->GetValue()!= 0)
 		{
 			printf("Ennemy : Left Collider Triggered\n");
 			this->m_velx = 1;
 		}
-
-		else if (tileMap[i]->CheckCollision(rightHitBox) && tileMap[i]->GetValue() != 0 ||
-			rightHitBox.x > LEVEL_WIDTH)
+		else if (rightHitBox.x >= LEVEL_WIDTH)
+		{
+			//printf("Ennemy : Right Border detected\n");
+			this->m_velx = -1;
+		}
+		else if (tileMap[i]->CheckCollision(rightHitBox) && tileMap[i]->GetValue() != 0)
 		{
 			printf("Enemy : Right Collider Triggered\n");
 			this->m_velx = -1;
