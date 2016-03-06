@@ -104,6 +104,7 @@ void Player::Update(LevelContent &content,Graphics* graph, Sound* sound)
 				content.ennemies.erase(content.ennemies.begin() + i);
 				printf("Enemy killed by Player");
 				this->m_score += 100;
+				sound->PlaySound("stomp");
 			}
 		}
 	}
@@ -118,6 +119,7 @@ void Player::Update(LevelContent &content,Graphics* graph, Sound* sound)
 				this->m_y -= 16;
 			this->m_pwrupState= content.items.at(i).PickUp();
 			content.items.erase(content.items.begin() + i);
+			sound->PlaySound("pwrup");
 			this->m_score += 1000;			
 		}
 	}

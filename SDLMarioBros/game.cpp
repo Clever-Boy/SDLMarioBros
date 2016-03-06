@@ -224,10 +224,17 @@ void Game::UIInit()
 	this->m_uimanager.AddText(this->m_graphics, "1-1", SCREEN_WIDTH - 48 - (8 * 8), 16, "world");
 }
 
+// Loads all the sounds / music
 void Game::SoundInit()
 {
 	//this->m_sound->LoadMusic("sounds/main-theme.wav");
 	this->m_sound->AddSound("sounds/coin.wav", "coin");
-	this->m_sound->AddSound("sounds/pwruppop.wav", "uppop");
+	this->m_sound->AddSound("sounds/pwruppop.wav","uppop");
 	this->m_sound->AddSound("sounds/jump.wav", "jump");
+	this->m_sound->AddSound("sounds/sjump.wav", "sjump");
+	this->m_sound->AddSound("sounds/pwrup.wav", "pwrup");
+	this->m_sound->AddSound("sounds/stomp.wav", "stomp");
+	this->m_sound->AddSound("sounds/1up.wav", "1up");
+	this->m_sound->AddSound("sounds/pwrdown.wav", "pwrdown");
+	this->m_sound->AddSound("sounds/bricksmash.wav", "bricksmash");
 }
