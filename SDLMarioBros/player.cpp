@@ -89,6 +89,11 @@ void Player::Update(LevelContent &content,Graphics* graph, Sound* sound)
 					this->m_coins += 1;
 					sound->PlaySound("coin");
 				}
+				else if (content.tileMap[i]->GetValue() == 2 && this->m_pwrupState > PLAYER_SMALL)
+				{
+					content.tileMap[i]->SetValue(0);
+					sound->PlaySound("bricksmash");
+				}
 				break;
 			}
 		}	
