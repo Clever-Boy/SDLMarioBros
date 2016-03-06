@@ -46,6 +46,7 @@ public:
 	int GetWidth();
 	int GetHeight();
 	int GetScore();
+	int GetCoins();
 	SDL_Rect GetRect();
 
 	SDL_Rect GetOffset(int pwrup);
@@ -61,4 +62,5 @@ private:
 	Texture* m_sprite;
 	Timer m_timer;
 	int m_score = 0;
+	int m_coins = 0;
 };

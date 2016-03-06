@@ -86,6 +86,7 @@ void Player::Update(LevelContent &content,Graphics* graph, Sound* sound)
 				{
 					content.tileMap[i]->SetValue(28);
 					this->m_score += 200;
+					this->m_coins += 1;
 					sound->PlaySound("coin");
 				}
 				break;
@@ -217,6 +218,11 @@ int Player::GetHeight()
 int Player::GetScore()
 {
 	return this->m_score;
+}
+
+int Player::GetCoins()
+{
+	return this->m_coins;
 }
 
 SDL_Rect  Player::GetRect()
