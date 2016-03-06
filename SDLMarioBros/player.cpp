@@ -61,7 +61,8 @@ void Player::Update(LevelContent &content,Graphics* graph, Sound* sound)
 			}
 		}
 	}
-		
+	
+	// When Player is jumping
 	if (this->isJumping() && !this->isOnGround())
 	{
 		groundPlayerHitBox = { this->m_x,this->m_y + JUMP_STRENGTH, this->GetWidth(), this->GetHeight() };
@@ -88,6 +89,21 @@ void Player::Update(LevelContent &content,Graphics* graph, Sound* sound)
 					sound->PlaySound("coin");
 				}
 				break;
+			}
+		}	
+	}
+
+	// Test if a enemy is touched on fall
+	if (!this->isOnGround())
+	{
+		groundPlayerHitBox = { this->m_x,this->m_y + 1, this->GetWidth(), this->GetHeight() };
+		for (unsigned int i = 0; i < content.ennemies.size(); i++)
+		{
+			if (CheckCollision(groundPlayerHitBox, content.ennemies.at(i).GetRect()))
+			{
+				content.ennemies.erase(content.ennemies.begin() + i);
+				printf("Enemy killed by Player");
+				this->m_score += 100;
 			}
 		}
 	}
