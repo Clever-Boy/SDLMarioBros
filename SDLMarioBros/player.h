@@ -26,7 +26,7 @@ public:
 	Player();
 	Player(Graphics* graph,int x, int y);
 	~Player();
-	void Update(LevelContent &content, Graphics* graphics);
+	void Update(LevelContent &content, Graphics* graphics, Sound* sound);
 	void Draw(Graphics* graph, int camX, int camY);
 	//void CheckCollision(Tile* tilemap[]);
 

@@ -124,17 +124,21 @@ void Game::Update()
 		camera.y = LEVEL_HEIGHT - camera.h;
 	}
 
-	this->m_player->Update(this->m_content,this->m_graphics);
+	// Update the player
+	this->m_player->Update(this->m_content,this->m_graphics, this->m_sound);
 
+	// Update all the ennemies
 	for (unsigned int i = 0; i < this->m_content.ennemies.size(); ++i)
 	{
 		this->m_content.ennemies.at(i).Update(this->m_content.tileMap);
 	}
 
+	// Update the HUD
 	this->m_uimanager.EditText(std::to_string(this->m_player->GetScore()), "score");
 	this->m_uimanager.EditText(std::to_string(this->m_leveltimer.GetCurrentTime()), "time");
 	this->m_uimanager.Update(this->m_graphics);
 
+	// Looping the music
 	/*if (Mix_PlayingMusic() == 0)
 	{
 		this->m_sound->PlayMusic();

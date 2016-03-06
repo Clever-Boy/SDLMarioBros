@@ -26,7 +26,7 @@ Player::~Player()
 	//this->m_sprite->Free();
 }
 
-void Player::Update(LevelContent &content,Graphics* graph)
+void Player::Update(LevelContent &content,Graphics* graph, Sound* sound)
 {
 	// Collision detection (to factorize into checkCollision function)
 	SDL_Rect groundPlayerHitBox = { this->m_x,this->m_y + 3, this->GetWidth(), this->GetHeight() };
@@ -73,14 +73,19 @@ void Player::Update(LevelContent &content,Graphics* graph)
 				// See if this can be moved to game class 
 				if (content.tileMap[i]->GetValue() == TILE_ITEM)
 				{
-					content.items.emplace_back(content.tileMap[i]->GetX()*TILE_WIDTH, content.tileMap[i]->GetY() * TILE_HEIGHT - TILE_HEIGHT, this->m_pwrupState+1, graph);
+					if (this->m_pwrupState > 2)
+						content.items.emplace_back(content.tileMap[i]->GetX()*TILE_WIDTH, content.tileMap[i]->GetY() * TILE_HEIGHT - TILE_HEIGHT, 3, graph);
+					else
+						content.items.emplace_back(content.tileMap[i]->GetX()*TILE_WIDTH, content.tileMap[i]->GetY() * TILE_HEIGHT - TILE_HEIGHT, this->m_pwrupState + 1, graph);
 					content.tileMap[i]->SetValue(28);
+					sound->PlaySound("uppop");
 					
 				}
 				else if (content.tileMap[i]->GetValue() == TILE_COIN)
 				{
 					content.tileMap[i]->SetValue(28);
 					this->m_score += 200;
+					sound->PlaySound("coin");
 				}
 				break;
 			}
