@@ -24,7 +24,7 @@ public:
 	void Draw(Graphics* graph, SDL_Rect* destRect);
 	void Draw(Graphics* graph, SDL_Rect* destRect, SDL_Rect* sourceRect);
 	
-private:
+protected:
 	SDL_Texture* m_texture;
 	int m_width;
 	int m_height;
