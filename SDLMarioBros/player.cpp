@@ -108,7 +108,7 @@ void Player::Update(LevelContent &content,Graphics* graph, Sound* sound)
 			if (CheckCollision(groundPlayerHitBox, content.ennemies.at(i).GetRect()))
 			{
 				content.ennemies.erase(content.ennemies.begin() + i);
-				printf("Enemy killed by Player");
+				printf("Enemy killed by Player\n");
 				this->m_score += 100;
 				sound->PlaySound("stomp");
 			}
@@ -253,6 +253,12 @@ SDL_Rect Player::GetOffset(int pwrup)
 		output.h = 32;
 		output.x = 0;
 		output.y = 16;
+		break;
+	case PLAYER_FIRE:
+		output.w = 16;
+		output.h = 32;
+		output.x = 0;
+		output.y = 48;
 		break;
 	default:
 		output.w = 16;

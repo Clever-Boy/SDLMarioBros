@@ -136,6 +136,7 @@ void Game::Update()
 	// Update the HUD
 	this->m_uimanager.EditText(std::to_string(this->m_player->GetScore()), "score");
 	this->m_uimanager.EditText(std::to_string(this->m_leveltimer.GetCurrentTime()), "time");
+	this->m_uimanager.EditText(std::to_string(this->m_player->GetCoins()), "coincount");
 	this->m_uimanager.Update(this->m_graphics);
 
 	// Looping the music
@@ -218,6 +219,7 @@ void Game::UIInit()
 {
 	this->m_uimanager.AddText(this->m_graphics, "Mario", 24, 8, "mario");
 	this->m_uimanager.AddText(this->m_graphics, "000000", 24, 16, "score");
+	this->m_uimanager.AddText(this->m_graphics, "x00", 86, 16, "coincount");
 	this->m_uimanager.AddText(this->m_graphics, "Time", SCREEN_WIDTH - 24 - (4 * 8), 8, "timelabel");
 	this->m_uimanager.AddText(this->m_graphics, "000", SCREEN_WIDTH - 22 - (4 * 8), 16, "time");
 	this->m_uimanager.AddText(this->m_graphics, "World", SCREEN_WIDTH - 48 - (9 * 8), 8, "worldlabel");

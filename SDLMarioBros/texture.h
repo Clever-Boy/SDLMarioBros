@@ -20,6 +20,7 @@ public:
 	void Free();
 	void LoadTexture(Graphics* graph, std::string filePath);
 	void LoadTextureFromText(Graphics* graph, std::string text);
+	void SetColor(int r, int g, int b);
 	void Draw(Graphics* graph, SDL_Rect* destRect);
 	void Draw(Graphics* graph, SDL_Rect* destRect, SDL_Rect* sourceRect);
 	
