@@ -155,21 +155,44 @@ void Player::Update(LevelContent &content,Graphics* graph, Sound* sound)
 	else if (!this->m_jumping)
 		this->m_vely = 0;
 
-	if (this->m_vely > 0)
+	// Animations
+	if (this->m_pwrupState == PLAYER_SMALL)
 	{
-		if (this->m_sprite->GetCurrentAnimation() != "small_jump")
-			this->m_sprite->PlayAnimation("small_jump");
+		if (this->m_vely > 0)
+		{
+			if (this->m_sprite->GetCurrentAnimation() != "small_jump")
+				this->m_sprite->PlayAnimation("small_jump");
+		}
+		else if (this->m_velx > 0)
+		{
+			if (this->m_sprite->GetCurrentAnimation() != "small_run")
+				this->m_sprite->PlayAnimation("small_run");
+		}
+		else if (this->m_velx == 0)
+		{
+			if (this->m_sprite->GetCurrentAnimation() != "small_idle")
+				this->m_sprite->PlayAnimation("small_idle");
+		}
 	}
-	else if (this->m_velx > 0)
+	else if (this->m_pwrupState >= PLAYER_GRAND)
 	{
-		if (this->m_sprite->GetCurrentAnimation() != "small_run")
-			this->m_sprite->PlayAnimation("small_run");
+		if (this->m_vely > 0)
+		{
+			if (this->m_sprite->GetCurrentAnimation() != "grand_jump")
+				this->m_sprite->PlayAnimation("grand_jump");
+		}
+		else if (this->m_velx > 0)
+		{
+			if (this->m_sprite->GetCurrentAnimation() != "grand_run")
+				this->m_sprite->PlayAnimation("grand_run");
+		}
+		else if (this->m_velx == 0)
+		{
+			if (this->m_sprite->GetCurrentAnimation() != "grand_idle")
+				this->m_sprite->PlayAnimation("grand_idle");
+		}
 	}
-	else if (this->m_velx == 0)
-	{
-		if (this->m_sprite->GetCurrentAnimation() != "small_idle")
-			this->m_sprite->PlayAnimation("small_idle");
-	}
+	
 	this->m_sprite->Update();
 
 	SDL_Delay(8);			// Need to find another way to slow instead of delay
@@ -190,7 +213,11 @@ void Player::setupAnimations()
 	this->m_sprite->AddAnimation(1, 0, 0, 16, 16, "small_idle");
 	this->m_sprite->AddAnimation(3, 16, 0, 16, 16, "small_run");
 	this->m_sprite->AddAnimation(1, 80, 0, 16, 16, "small_jump");
+	this->m_sprite->AddAnimation(1, 0, 16, 16, 32, "grand_idle");
+	this->m_sprite->AddAnimation(3, 16, 16, 16, 32, "grand_run");
+	this->m_sprite->AddAnimation(1, 80, 16, 16, 32, "grand_jump");
 }
+
 
 void Player::Idle()
 {
