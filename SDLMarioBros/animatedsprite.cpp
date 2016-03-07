@@ -27,6 +27,7 @@ void AnimatedSprite::AddAnimation(int frames, int x, int y, int width, int heigh
 
 void AnimatedSprite::PlayAnimation(std::string name)
 {
+	this->StopCurrentAnimation();
 	this->m_currentAnimation = name;
 	this->m_frameIndex = 0;
 }
@@ -36,14 +37,45 @@ void AnimatedSprite::ResetAnimations()
 	this->m_animations.clear();
 }
 
+void AnimatedSprite::StopCurrentAnimation()
+{
+	this->m_timer.Stop();
+	this->m_frameIndex = 0;
+}
+
+std::string AnimatedSprite::GetCurrentAnimation()
+{
+	return this->m_currentAnimation;
+}
+
 void AnimatedSprite::Draw(Graphics * graph, SDL_Rect* destRect)
 {
-	SDL_Rect yolo;
 	if (this->m_currentAnimation == " ")
 	{
 		SDL_Rect tmp = { 0,0,16,16 };
 		Texture::Draw(graph, destRect, &tmp);
 	}
 	else
-		Texture::Draw(graph, destRect, &m_animations.at(this->m_currentAnimation).at(this->m_frameIndex));
+		Texture::Draw(graph, destRect,&this->m_animations[this->m_currentAnimation][this->m_frameIndex]);
+}
+
+void AnimatedSprite::Update()
+{	
+	if (!this->m_timer.isEnabled())
+	{
+		this->m_timer.Start(100);
+	}
+	if (this->m_timer.isDone())
+	{
+		if (this->m_frameIndex < this->m_animations[this->m_currentAnimation].size() - 1)
+		{
+			this->m_frameIndex++;
+		}
+		else
+		{
+			this->m_frameIndex = 0;
+		}
+		this->m_timer.Stop();
+		this->m_timer.Start(100);	
+	}
 }

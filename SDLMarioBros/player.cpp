@@ -18,7 +18,9 @@ Player::Player(Graphics* graph,int x, int y)
 	Player();
 	this->m_x = x;
 	this->m_y = y;
-	this->m_sprite = new Texture(graph, "sprites/mariosheet.png");
+	//this->m_sprite = new Texture(graph, "sprites/mariosheet.png");
+	this->m_sprite = new AnimatedSprite(graph, "sprites/mariosheet.png");
+	this->setupAnimations();
 }
 
 Player::~Player()
@@ -153,6 +155,23 @@ void Player::Update(LevelContent &content,Graphics* graph, Sound* sound)
 	else if (!this->m_jumping)
 		this->m_vely = 0;
 
+	if (this->m_vely > 0)
+	{
+		if (this->m_sprite->GetCurrentAnimation() != "small_jump")
+			this->m_sprite->PlayAnimation("small_jump");
+	}
+	else if (this->m_velx > 0)
+	{
+		if (this->m_sprite->GetCurrentAnimation() != "small_run")
+			this->m_sprite->PlayAnimation("small_run");
+	}
+	else if (this->m_velx == 0)
+	{
+		if (this->m_sprite->GetCurrentAnimation() != "small_idle")
+			this->m_sprite->PlayAnimation("small_idle");
+	}
+	this->m_sprite->Update();
+
 	SDL_Delay(8);			// Need to find another way to slow instead of delay
 }
 
@@ -161,8 +180,16 @@ void Player::Draw(Graphics* graph, int camX, int camY)
 	if (m_sprite != NULL) {
 		SDL_Rect sourceRect = GetOffset(this->m_pwrupState);
 		SDL_Rect destRect = { this->m_x - camX, this->m_y - camY,sourceRect.w, sourceRect.h };
-		this->m_sprite->Draw(graph, &destRect,&sourceRect);
+		//this->m_sprite->Draw(graph, &destRect,&sourceRect);
+		this->m_sprite->Draw(graph, &destRect);
 	}
+}
+
+void Player::setupAnimations()
+{
+	this->m_sprite->AddAnimation(1, 0, 0, 16, 16, "small_idle");
+	this->m_sprite->AddAnimation(3, 16, 0, 16, 16, "small_run");
+	this->m_sprite->AddAnimation(1, 80, 0, 16, 16, "small_jump");
 }
 
 void Player::Idle()
