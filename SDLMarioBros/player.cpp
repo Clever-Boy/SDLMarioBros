@@ -290,6 +290,11 @@ SDL_Rect  Player::GetRect()
 	return output;
 }
 
+void Player::SetX(int x)
+{
+	this->m_x = x;
+}
+
 SDL_Rect Player::GetOffset(int pwrup)
 {
 	SDL_Rect output;

@@ -50,6 +50,8 @@ public:
 	int GetCoins();
 	SDL_Rect GetRect();
 
+	void SetX(int x);
+
 	SDL_Rect GetOffset(int pwrup);
 
 private:

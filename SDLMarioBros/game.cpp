@@ -111,7 +111,8 @@ void Game::Draw()
 void Game::Update()
 {
 	// Update the camera
-	this->camera.x = (m_player->GetX() + m_player->GetWidth() / 2) - SCREEN_WIDTH / 2;
+	if ((m_player->GetX() + m_player->GetWidth() / 2) - SCREEN_WIDTH / 2 > this->camera.x)
+		this->camera.x = (m_player->GetX() + m_player->GetWidth() / 2) - SCREEN_WIDTH / 2;
 	this->camera.y = (m_player->GetY() + m_player->GetHeight() / 2) - SCREEN_HEIGHT / 2;
 
 	if (camera.x < 0) { camera.x = 0; }
@@ -126,6 +127,9 @@ void Game::Update()
 
 	// Update the player
 	this->m_player->Update(this->m_content,this->m_graphics, this->m_sound);
+
+	if (this->m_player->GetX() < camera.x)
+		this->m_player->SetX(camera.x);
 
 	// Update all the ennemies
 	for (unsigned int i = 0; i < this->m_content.ennemies.size(); ++i)
