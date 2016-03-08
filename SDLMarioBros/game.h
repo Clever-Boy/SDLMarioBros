@@ -13,6 +13,7 @@
 #include "enemy.h"
 #include "item.h"
 #include "util.h"
+#include "levelcontent.h"
 #include "uimanager.h"
 #include "sound.h"
 

@@ -3,6 +3,7 @@
 #include "graphics.h"
 #include "texture.h"
 #include "timer.h"
+#include "levelcontent.h"
 #include "tile.h"
 #include "util.h"
 #include "sound.h"

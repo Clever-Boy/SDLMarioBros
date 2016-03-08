@@ -15,7 +15,7 @@ Item::Item(int x, int y, int id, Graphics* graph)
 	this->m_x = x;
 	this->m_y = y;	
 	this->m_id = id;
-	this->m_texture = new Texture(graph->LoadTexture("sprites/items.png"));
+	this->m_texture = new Texture(graph->LoadTexture("sprites/items.png"));	
 }
 
 Item::~Item() { }
@@ -31,14 +31,31 @@ void Item::Update(Tile* tileMap[])
 {
 	if (this->m_id == ITEM_MUSHROOM)
 	{
-		SDL_Rect groundHitBox = { this->m_x,this->m_y + 1, ITEM_WIDTH, ITEM_HEIGHT };
-		this->m_x += 1;
+		SDL_Rect leftHitBox = this->GetRect();
+		leftHitBox.x = leftHitBox.x - 1;
+		leftHitBox.y = leftHitBox.y;
 
-		/*for (int i = 0; i < TOTAL_TILES; i++)
+		SDL_Rect rightHitBox = this->GetRect();
+		rightHitBox.x = rightHitBox.x + 1;
+		rightHitBox.y = rightHitBox.y;		
+		
+		SDL_Rect groundHitBox = { this->m_x,this->m_y+1, ITEM_WIDTH, ITEM_HEIGHT };
+		bool onGround = false;
+
+		for (int i = 0; i < TOTAL_TILES; i++)
 		{
-			if (!tileMap[i]->CheckCollision(groundHitBox))
-				this->m_y += 1;
-		}*/
+			if (tileMap[i]->CheckCollision(groundHitBox) && tileMap[i]->GetValue() != 0)
+			{
+				onGround = true;				
+				break;		
+			}
+		}
+		if (!onGround)
+			m_vely = 1;		
+
+		this->m_x += m_velx;
+		this->m_y += m_vely;
+
 	}		
 }
 

@@ -147,6 +147,7 @@
     <ClInclude Include="game.h" />
     <ClInclude Include="graphics.h" />
     <ClInclude Include="item.h" />
+    <ClInclude Include="levelcontent.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="sound.h" />
     <ClInclude Include="text.h" />

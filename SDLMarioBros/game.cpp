@@ -42,17 +42,22 @@ int Game::SDLInit()
 
 void Game::GameLoop()
 {
+	// Initialize the player
 	this->m_player = new Player(this->m_graphics, 1, SCREEN_HEIGHT - TILE_HEIGHT*3);
 	
+	// Loads the sounds and the HUD
 	SoundInit();
 	UIInit();
+
+	// Start the level timer
 	this->m_leveltimer.Start(400000);
 		
 	// Init the camera
 	this->camera = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
 	camera.x = (m_player->GetX() + m_player->GetWidth() / 2) - SCREEN_WIDTH / 2;
 	camera.y = (m_player->GetY() + m_player->GetHeight() / 2) - SCREEN_HEIGHT / 2;
-		
+	
+	// Loads the level
 	bool levelLoadSuccess = false;
 	Texture* tilesetTexture = new Texture(this->m_graphics, "tilesets/global.png");
 	Texture* enemyTexture = new Texture(this->m_graphics, "sprites/goomba.png");

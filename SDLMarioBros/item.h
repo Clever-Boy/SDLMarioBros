@@ -2,6 +2,7 @@
 
 #include "texture.h"
 #include "tile.h"
+#include "util.h"
 
 const int ITEM_WIDTH = 16;
 const int ITEM_HEIGHT = 16;
@@ -32,5 +33,7 @@ private:
 	Texture* m_texture;
 	int m_x;
 	int m_y;
+	int m_velx = 0;
+	int m_vely = 0;
 	int m_id;
 };

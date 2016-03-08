@@ -174,7 +174,7 @@ void Player::Update(LevelContent &content,Graphics* graph, Sound* sound)
 				this->m_sprite->PlayAnimation("small_idle");
 		}
 	}
-	else if (this->m_pwrupState >= PLAYER_GRAND)
+	else if (this->m_pwrupState == PLAYER_GRAND)
 	{
 		if (this->m_vely > 0)
 		{
@@ -190,6 +190,24 @@ void Player::Update(LevelContent &content,Graphics* graph, Sound* sound)
 		{
 			if (this->m_sprite->GetCurrentAnimation() != "grand_idle")
 				this->m_sprite->PlayAnimation("grand_idle");
+		}
+	}
+	else if (this->m_pwrupState >= PLAYER_FIRE)
+	{
+		if (this->m_vely > 0)
+		{
+			if (this->m_sprite->GetCurrentAnimation() != "fire_jump")
+				this->m_sprite->PlayAnimation("fire_jump");
+		}
+		else if (this->m_velx != 0)
+		{
+			if (this->m_sprite->GetCurrentAnimation() != "fire_run")
+				this->m_sprite->PlayAnimation("fire_run");
+		}
+		else if (this->m_velx == 0)
+		{
+			if (this->m_sprite->GetCurrentAnimation() != "fire_idle")
+				this->m_sprite->PlayAnimation("fire_idle");
 		}
 	}
 	
@@ -218,6 +236,9 @@ void Player::setupAnimations()
 	this->m_sprite->AddAnimation(1, 0, 16, 16, 32, "grand_idle");
 	this->m_sprite->AddAnimation(3, 16, 16, 16, 32, "grand_run");
 	this->m_sprite->AddAnimation(1, 80, 16, 16, 32, "grand_jump");
+	this->m_sprite->AddAnimation(1, 0, 48, 16, 32, "fire_idle");
+	this->m_sprite->AddAnimation(3, 16, 48, 16, 32, "fire_run");
+	this->m_sprite->AddAnimation(1, 80, 48, 16, 32, "fire_jump");
 }
 
 
