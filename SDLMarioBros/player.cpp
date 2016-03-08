@@ -163,7 +163,7 @@ void Player::Update(LevelContent &content,Graphics* graph, Sound* sound)
 			if (this->m_sprite->GetCurrentAnimation() != "small_jump")
 				this->m_sprite->PlayAnimation("small_jump");
 		}
-		else if (this->m_velx > 0)
+		else if (this->m_velx != 0)
 		{
 			if (this->m_sprite->GetCurrentAnimation() != "small_run")
 				this->m_sprite->PlayAnimation("small_run");
@@ -181,7 +181,7 @@ void Player::Update(LevelContent &content,Graphics* graph, Sound* sound)
 			if (this->m_sprite->GetCurrentAnimation() != "grand_jump")
 				this->m_sprite->PlayAnimation("grand_jump");
 		}
-		else if (this->m_velx > 0)
+		else if (this->m_velx != 0)
 		{
 			if (this->m_sprite->GetCurrentAnimation() != "grand_run")
 				this->m_sprite->PlayAnimation("grand_run");
@@ -203,8 +203,10 @@ void Player::Draw(Graphics* graph, int camX, int camY)
 	if (m_sprite != NULL) {
 		SDL_Rect sourceRect = GetOffset(this->m_pwrupState);
 		SDL_Rect destRect = { this->m_x - camX, this->m_y - camY,sourceRect.w, sourceRect.h };
-		//this->m_sprite->Draw(graph, &destRect,&sourceRect);
-		this->m_sprite->Draw(graph, &destRect);
+		if (this->m_velx < 0)
+			this->m_sprite->Draw(graph, &destRect,SDL_FLIP_HORIZONTAL);
+		else
+			this->m_sprite->Draw(graph, &destRect);
 	}
 }
 

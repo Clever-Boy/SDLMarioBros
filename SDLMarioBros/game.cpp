@@ -137,6 +137,11 @@ void Game::Update()
 		this->m_content.ennemies.at(i).Update(this->m_content.tileMap);
 	}
 
+	for (unsigned int i = 0; i < this->m_content.items.size(); ++i)
+	{
+		this->m_content.items.at(i).Update(this->m_content.tileMap);
+	}
+
 	// Update the HUD
 	this->m_uimanager.EditText(std::to_string(this->m_player->GetScore()), "score");
 	this->m_uimanager.EditText(std::to_string(this->m_leveltimer.GetCurrentTime()), "time");

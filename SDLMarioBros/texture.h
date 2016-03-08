@@ -23,6 +23,7 @@ public:
 	void SetColor(int r, int g, int b);
 	void Draw(Graphics* graph, SDL_Rect* destRect);
 	void Draw(Graphics* graph, SDL_Rect* destRect, SDL_Rect* sourceRect);
+	void Draw(Graphics* graph, SDL_Rect* destRect, SDL_Rect* sourceRect,SDL_RendererFlip flip);
 	
 protected:
 	SDL_Texture* m_texture;

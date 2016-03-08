@@ -27,6 +27,21 @@ void Item::Draw(Graphics* graph, int camX, int camY)
 	this->m_texture->Draw(graph, &destRect, &sourceRect);
 }
 
+void Item::Update(Tile* tileMap[])
+{
+	if (this->m_id == ITEM_MUSHROOM)
+	{
+		SDL_Rect groundHitBox = { this->m_x,this->m_y + 1, ITEM_WIDTH, ITEM_HEIGHT };
+		this->m_x += 1;
+
+		/*for (int i = 0; i < TOTAL_TILES; i++)
+		{
+			if (!tileMap[i]->CheckCollision(groundHitBox))
+				this->m_y += 1;
+		}*/
+	}		
+}
+
 int Item::PickUp()
 {
 	return this->m_id;

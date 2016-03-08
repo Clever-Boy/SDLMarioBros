@@ -85,8 +85,20 @@ void Graphics::BlitTexture(SDL_Texture* texture, SDL_Rect* destRect)
 		printf("ERROR : Cannot render texture SDL_Error : %s",SDL_GetError());
 }
 
+void Graphics::BlitTexture(SDL_Texture * texture, SDL_Rect * destRect, SDL_RendererFlip flip)
+{
+	if (SDL_RenderCopyEx(this->m_renderer,texture,NULL,destRect,NULL,NULL,flip) < 0)
+		printf("ERROR : Cannot render texture SDL_Error : %s", SDL_GetError());
+}
+
 void Graphics::BlitTexture(SDL_Texture* texture, SDL_Rect* destRect,SDL_Rect* sourceRect)
 {
 	if (SDL_RenderCopy(this->m_renderer, texture, sourceRect, destRect) < 0)
+		printf("ERROR : Cannot render texture SDL_Error : %s", SDL_GetError());
+}
+
+void Graphics::BlitTexture(SDL_Texture * texture, SDL_Rect * destRect, SDL_Rect * sourceRect, SDL_RendererFlip flip)
+{
+	if (SDL_RenderCopyEx(this->m_renderer, texture, sourceRect, destRect, NULL, NULL, flip) < 0)
 		printf("ERROR : Cannot render texture SDL_Error : %s", SDL_GetError());
 }

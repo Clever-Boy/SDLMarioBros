@@ -17,7 +17,8 @@ public:
 	void ResetAnimations();
 	void StopCurrentAnimation();
 	std::string GetCurrentAnimation();
-	void Draw(Graphics* graph, SDL_Rect* destRect);	
+	void Draw(Graphics* graph, SDL_Rect* destRect);
+	void Draw(Graphics * graph, SDL_Rect * destRect, SDL_RendererFlip flip);
 	void Update();
 
 

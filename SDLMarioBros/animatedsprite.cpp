@@ -59,6 +59,17 @@ void AnimatedSprite::Draw(Graphics * graph, SDL_Rect* destRect)
 		Texture::Draw(graph, destRect,&this->m_animations[this->m_currentAnimation][this->m_frameIndex]);
 }
 
+void AnimatedSprite::Draw(Graphics * graph, SDL_Rect* destRect, SDL_RendererFlip flip)
+{
+	if (this->m_currentAnimation == " ")
+	{
+		SDL_Rect tmp = { 0,0,16,16 };
+		Texture::Draw(graph, destRect, &tmp,flip);
+	}
+	else
+		Texture::Draw(graph, destRect, &this->m_animations[this->m_currentAnimation][this->m_frameIndex],flip);
+}
+
 void AnimatedSprite::Update()
 {	
 	if (!this->m_timer.isEnabled())

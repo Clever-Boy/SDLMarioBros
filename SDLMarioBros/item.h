@@ -1,6 +1,7 @@
 #pragma once
 
 #include "texture.h"
+#include "tile.h"
 
 const int ITEM_WIDTH = 16;
 const int ITEM_HEIGHT = 16;
@@ -21,6 +22,7 @@ public:
 	Item(int x, int y, int id,Graphics* graph);
 	~Item();
 	void Draw(Graphics* graph, int camX, int camY);
+	void Update(Tile* tilemap[]);
 	int PickUp();	// Return the ID of the item picked
 	SDL_Rect GetRect();
 	int GetWidth();
