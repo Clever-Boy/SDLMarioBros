@@ -18,7 +18,6 @@ Player::Player(Graphics* graph,int x, int y)
 	Player();
 	this->m_x = x;
 	this->m_y = y;
-	//this->m_sprite = new Texture(graph, "sprites/mariosheet.png");
 	this->m_sprite = new AnimatedSprite(graph, "sprites/mariosheet.png");
 	this->setupAnimations();
 }
@@ -266,6 +265,12 @@ void Player::Jump(Sound* sound)
 		sound->PlaySound("jump");
 	}
 }
+
+void Player::Fire(Graphics * graph, std::vector<Bullet>* bullets)
+{
+	bullets->emplace_back(graph, this->m_x + 1, this->m_y, 1);
+}
+
 
 bool Player::isOnGround()
 {

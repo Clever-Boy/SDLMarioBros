@@ -15,7 +15,9 @@ Item::Item(int x, int y, int id, Graphics* graph)
 	this->m_x = x;
 	this->m_y = y;	
 	this->m_id = id;
-	this->m_texture = new Texture(graph->LoadTexture("sprites/items.png"));	
+	this->m_texture = new Texture(graph->LoadTexture("sprites/items.png"));
+	if (id == 1)
+		this->m_velx = 1;
 }
 
 Item::~Item() { }
@@ -46,12 +48,16 @@ void Item::Update(Tile* tileMap[])
 		{
 			if (tileMap[i]->CheckCollision(groundHitBox) && tileMap[i]->GetValue() != 0)
 			{
-				onGround = true;				
-				break;		
+				onGround = true;
+				break;
 			}
+			else
+				onGround = false;
 		}
 		if (!onGround)
-			m_vely = 1;		
+			m_vely = 1;
+		else
+			m_vely = 0;
 
 		this->m_x += m_velx;
 		this->m_y += m_vely;

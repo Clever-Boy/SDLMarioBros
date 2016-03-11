@@ -136,16 +136,7 @@ void Game::Update()
 	if (this->m_player->GetX() < camera.x)
 		this->m_player->SetX(camera.x);
 
-	// Update all the ennemies
-	for (unsigned int i = 0; i < this->m_content.ennemies.size(); ++i)
-	{
-		this->m_content.ennemies.at(i).Update(this->m_content.tileMap);
-	}
-
-	for (unsigned int i = 0; i < this->m_content.items.size(); ++i)
-	{
-		this->m_content.items.at(i).Update(this->m_content.tileMap);
-	}
+	UpdateContent(&this->m_content);
 
 	// Update the HUD
 	this->m_uimanager.EditText(std::to_string(this->m_player->GetScore()), "score");
@@ -170,7 +161,10 @@ void Game::HandleInput(const Uint8 *keystate)
 	else
 		this->m_player->Idle();
 	if (keystate[SDL_SCANCODE_UP]) {
-		this->m_player->Jump(this->m_sound);		
+		this->m_player->Jump(this->m_sound);
+	}
+	if (keystate[SDL_SCANCODE_W]) {
+		//this->m_player->Fire();
 	}
 
 }
@@ -180,7 +174,7 @@ bool Game::LoadLevel(Texture* tileset, Texture* enemyTexture)
 	bool success = true;
 
 	// creating the stream to read the tile map
-	std::ifstream map("levels/1-1.map");
+	std::ifstream map("levels/test.map");
 	
 	if (!map)
 	{

@@ -32,11 +32,12 @@ public:
 	void Draw(Graphics* graph, int camX, int camY);
 	void setupAnimations();
 
-	// Player's mouvements
+	// Player's actions
 	void Idle();
 	void MoveLeft();
 	void MoveRight();
 	void Jump(Sound* sound);
+	void Fire(Graphics* graph, std::vector<Bullet>* bullets);
 
 	// Player's States
 	bool isOnGround();
