@@ -14,14 +14,16 @@ Bullet::Bullet(Graphics * graph, int x, int y, int id)
 	this->m_vely = 0;
 }
 
-void Bullet::Draw(Graphics* graph)
+void Bullet::Draw(Graphics* graph, int camX, int camY)
 {
-	SDL_Rect destRect = { this->m_x,this->m_y,this->GetWidth(),this->GetHeight() };
+	SDL_Rect destRect = { this->m_x - camX,this->m_y - camY,this->GetWidth(),this->GetHeight() };
 	this->m_texture->Draw(graph, &destRect);
 }
 
 void Bullet::Update()
 {
+	this->m_x += this->m_velx;
+	this->m_y += this->m_vely;
 }
 
 int Bullet::GetX()

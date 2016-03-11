@@ -96,18 +96,9 @@ void Game::Draw()
 	
 	if (this->m_player != NULL)
 		this->m_player->Draw(this->m_graphics,this->camera.x,this->camera.y);
-	for (int i = 0; i < TOTAL_TILES; ++i) {
-		if (this->m_content.tileMap[i]->CheckCollision(this->camera))
-			this->m_content.tileMap[i]->Draw(this->m_graphics, this->camera.x, this->camera.y);
-	}
-	for (unsigned int i = 0; i < this->m_content.ennemies.size(); ++i)
-	{
-		this->m_content.ennemies.at(i).Draw(this->m_graphics, this->camera.x, this->camera.y);
-	}
-	for (unsigned int i = 0; i < this->m_content.items.size();  i++)
-	{
-		this->m_content.items.at(i).Draw(this->m_graphics,this->camera.x,this->camera.y);
-	}
+
+	DrawContent(&this->m_content, this->m_graphics, &camera);
+	
 	this->m_uimanager.Draw(this->m_graphics);
 
 	this->m_graphics->RenderPresent();
@@ -164,7 +155,7 @@ void Game::HandleInput(const Uint8 *keystate)
 		this->m_player->Jump(this->m_sound);
 	}
 	if (keystate[SDL_SCANCODE_W]) {
-		//this->m_player->Fire();
+		this->m_player->Fire(this->m_graphics,&this->m_content.bullets);
 	}
 
 }

@@ -18,3 +18,4 @@ struct LevelContent
 };
 
 void UpdateContent(LevelContent* m_content);
+void DrawContent(LevelContent* m_content, Graphics* graph, SDL_Rect* camera);

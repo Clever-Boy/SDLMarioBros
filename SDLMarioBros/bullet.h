@@ -8,7 +8,7 @@ class Bullet
 public:
 	Bullet();
 	Bullet(Graphics* graph, int x, int y, int id);
-	void Draw(Graphics* graph);
+	void Draw(Graphics* graph, int camX, int camY);
 	void Update();
 	int GetX();
 	int GetY();
