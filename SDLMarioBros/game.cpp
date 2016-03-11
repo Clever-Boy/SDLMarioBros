@@ -72,10 +72,23 @@ void Game::GameLoop()
 		bool quit = false;
 		while (!quit)
 		{
+			this->m_input.beginNewFrame();
 			SDL_Event e;
 			while (SDL_PollEvent(&e) != 0)
 			{
-				if (e.type == SDL_QUIT)
+				if (e.type == SDL_KEYDOWN)
+				{
+					if (e.key.repeat == 0)
+					{
+						this->m_input.KeyDownEvent(e);
+					}
+				}
+
+				else if (e.type == SDL_KEYUP)
+				{
+					this->m_input.KeyUpEvent(e);
+				}
+				else if (e.type == SDL_QUIT)
 				{
 					quit = true;
 				}
@@ -145,19 +158,16 @@ void Game::Update()
 
 void Game::HandleInput(const Uint8 *keystate)
 {
-	if (keystate[SDL_SCANCODE_LEFT])
+	if (this->m_input.isKeyHeld(SDL_SCANCODE_LEFT))
 		this->m_player->MoveLeft();
-	else if (keystate[SDL_SCANCODE_RIGHT])
+	else if (this->m_input.isKeyHeld(SDL_SCANCODE_RIGHT))
 		this->m_player->MoveRight();
-	else
-		this->m_player->Idle();
-	if (keystate[SDL_SCANCODE_UP]) {
-		this->m_player->Jump(this->m_sound);
-	}
-	if (keystate[SDL_SCANCODE_W]) {
-		this->m_player->Fire(this->m_graphics,&this->m_content.bullets);
-	}
 
+	if (this->m_input.wasKeyPressed(SDL_SCANCODE_UP))
+		this->m_player->Jump(this->m_sound);
+
+	if (!this->m_input.isKeyHeld(SDL_SCANCODE_LEFT) && !this->m_input.isKeyHeld(SDL_SCANCODE_RIGHT))
+		this->m_player->Idle();
 }
 
 bool Game::LoadLevel(Texture* tileset, Texture* enemyTexture)

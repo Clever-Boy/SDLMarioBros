@@ -16,6 +16,7 @@
 #include "levelcontent.h"
 #include "uimanager.h"
 #include "sound.h"
+#include "input.h"
 
 
 class Game
@@ -40,4 +41,5 @@ private:
 	LevelContent m_content;
 	UIManager m_uimanager;
 	Timer m_leveltimer;
+	Input m_input;
 };
