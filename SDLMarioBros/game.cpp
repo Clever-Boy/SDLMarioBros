@@ -67,8 +67,7 @@ void Game::GameLoop()
 		levelLoadSuccess = this->LoadLevel(tilesetTexture,enemyTexture);
 
 	// If the map is load correctly, we launch the game loop
-	if (levelLoadSuccess) {
-		const Uint8* currentKeyState = NULL;
+	if (levelLoadSuccess) {		
 		bool quit = false;
 		while (!quit)
 		{
@@ -92,9 +91,8 @@ void Game::GameLoop()
 				{
 					quit = true;
 				}
-			}
-			currentKeyState = SDL_GetKeyboardState(NULL);
-			this->HandleInput(currentKeyState);
+			}			
+			this->HandleInput();
 			Update();
 			Draw();
 		}
@@ -140,7 +138,7 @@ void Game::Update()
 	if (this->m_player->GetX() < camera.x)
 		this->m_player->SetX(camera.x);
 
-	UpdateContent(&this->m_content);
+	UpdateContent(&this->m_content,camera);
 
 	// Update the HUD
 	this->m_uimanager.EditText(std::to_string(this->m_player->GetScore()), "score");
@@ -154,17 +152,22 @@ void Game::Update()
 		this->m_sound->PlayMusic();
 	}*/
 
+	SDL_Delay(8);
+
 }
 
-void Game::HandleInput(const Uint8 *keystate)
+void Game::HandleInput()
 {
 	if (this->m_input.isKeyHeld(SDL_SCANCODE_LEFT))
 		this->m_player->MoveLeft();
 	else if (this->m_input.isKeyHeld(SDL_SCANCODE_RIGHT))
-		this->m_player->MoveRight();
+		this->m_player->MoveRight();	
 
 	if (this->m_input.wasKeyPressed(SDL_SCANCODE_UP))
 		this->m_player->Jump(this->m_sound);
+
+	if (this->m_input.wasKeyPressed(SDL_SCANCODE_W))
+		this->m_player->Fire(this->m_graphics, &this->m_content.bullets);
 
 	if (!this->m_input.isKeyHeld(SDL_SCANCODE_LEFT) && !this->m_input.isKeyHeld(SDL_SCANCODE_RIGHT))
 		this->m_player->Idle();

@@ -1,6 +1,6 @@
 #include "levelcontent.h"
 
-void UpdateContent(LevelContent* m_content)
+void UpdateContent(LevelContent* m_content,SDL_Rect camera)
 {
 	for (unsigned int i = 0; i < m_content->ennemies.size(); ++i)
 	{
@@ -13,7 +13,9 @@ void UpdateContent(LevelContent* m_content)
 	}
 	for (unsigned int i = 0; i < m_content->bullets.size(); ++i)
 	{
-		m_content->bullets.at(i).Update();
+		m_content->bullets.at(i).Update(m_content->tileMap);
+		if (m_content->bullets.at(i).isEnd() || isOutScreen(camera, m_content->bullets.at(i).GetRect()))
+			m_content->bullets.erase(m_content->bullets.begin() + i);
 	}
 }
 

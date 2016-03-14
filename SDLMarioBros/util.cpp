@@ -34,3 +34,11 @@ bool CheckCollision(SDL_Rect a, SDL_Rect b)
 
 	return true;
 }
+
+bool isOutScreen(SDL_Rect camera, SDL_Rect object)
+{
+	if (object.x + object.w > camera.x + SCREEN_WIDTH || object.x + object.w < camera.x)
+		return true;
+	else
+		return false;
+}

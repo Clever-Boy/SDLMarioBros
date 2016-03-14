@@ -17,5 +17,5 @@ struct LevelContent
 	std::vector<Bullet> bullets;
 };
 
-void UpdateContent(LevelContent* m_content);
+void UpdateContent(LevelContent* m_content, SDL_Rect camera);
 void DrawContent(LevelContent* m_content, Graphics* graph, SDL_Rect* camera);

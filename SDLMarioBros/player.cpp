@@ -115,6 +115,19 @@ void Player::Update(LevelContent &content,Graphics* graph, Sound* sound)
 			}
 		}
 	}
+	if (this->m_pwrupState == PLAYER_STAR)
+	{
+		for (unsigned int i = 0; i < content.ennemies.size(); i++)
+		{
+			if (CheckCollision(this->GetRect(), content.ennemies.at(i).GetRect()))
+			{
+				content.ennemies.erase(content.ennemies.begin() + i);
+				printf("Enemy killed by Player\n");
+				this->m_score += 100;
+				sound->PlaySound("stomp");
+			}
+		}
+	}
 
 	// See if this can be moved to game class 
 	for (unsigned int i = 0; i < content.items.size(); i++)
@@ -212,7 +225,7 @@ void Player::Update(LevelContent &content,Graphics* graph, Sound* sound)
 	
 	this->m_sprite->Update();
 
-	SDL_Delay(8);			// Need to find another way to slow instead of delay
+	
 }
 
 void Player::Draw(Graphics* graph, int camX, int camY)
@@ -268,7 +281,8 @@ void Player::Jump(Sound* sound)
 
 void Player::Fire(Graphics * graph, std::vector<Bullet>* bullets)
 {
-	bullets->emplace_back(graph, this->m_x + 1, this->m_y, 1);
+	//if (this->m_pwrupState >= PLAYER_FIRE)
+		bullets->emplace_back(graph, this->m_x + 1, this->m_y + 16, 1);
 }
 
 
