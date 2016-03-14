@@ -33,6 +33,7 @@ void Item::Update(Tile* tileMap[])
 {
 	if (this->m_id == ITEM_MUSHROOM)
 	{
+		
 		SDL_Rect leftHitBox = this->GetRect();
 		leftHitBox.x = leftHitBox.x - 1;
 		leftHitBox.y = leftHitBox.y;
@@ -48,11 +49,17 @@ void Item::Update(Tile* tileMap[])
 		{
 			if (tileMap[i]->CheckCollision(groundHitBox) && tileMap[i]->GetValue() != 0)
 			{
-				onGround = true;
-				break;
+				onGround = true;				
+			}	
+
+			if (tileMap[i]->CheckCollision(rightHitBox) && tileMap[i]->GetValue() != 0)
+			{
+				this->m_velx = -1;
 			}
-			else
-				onGround = false;
+			else if (tileMap[i]->CheckCollision(leftHitBox) && tileMap[i]->GetValue() != 0)
+			{
+				this->m_velx = 1;
+			}
 		}
 		if (!onGround)
 			m_vely = 1;

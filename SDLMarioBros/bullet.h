@@ -24,7 +24,7 @@ private:
 	int m_velx;
 	int m_vely;
 	int m_id;
-	bool end = false;
+	bool m_end = false;
 	Texture* m_texture;
 	Timer m_timer;
 };

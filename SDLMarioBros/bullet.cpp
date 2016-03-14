@@ -25,13 +25,21 @@ void Bullet::Update(Tile* tilemap[])
 	SDL_Rect groundHitBox = this->GetRect();
 	groundHitBox.y += 1;
 
+	if (this->m_timer.isDone())
+		this->m_vely = 1;
+
 	for (int i = 0; i < TOTAL_TILES; i++)
 	{
 		if (tilemap[i]->CheckCollision(groundHitBox)  && tilemap[i]->GetValue() != 0 && this->m_vely == 1)
 		{
-			this->m_vely = -1;			
+			this->m_vely = -1;	
+			this->m_timer.Start(200);
 			break;
-		}		
+		}
+		if (tilemap[i]->CheckCollision(this->GetRect()) && tilemap[i]->GetValue() != 0)
+		{
+			this->m_end = true;
+		}
 	}
 
 	this->m_x += this->m_velx;
@@ -67,5 +75,5 @@ SDL_Rect Bullet::GetRect()
 
 bool Bullet::isEnd()
 {
-	return this->end;
+	return this->m_end;
 }
