@@ -281,7 +281,7 @@ void Player::Jump(Sound* sound)
 
 void Player::Fire(Graphics * graph, std::vector<Bullet>* bullets)
 {
-	//if (this->m_pwrupState >= PLAYER_FIRE)
+	if (this->m_pwrupState >= PLAYER_FIRE)
 		bullets->emplace_back(graph, this->m_x + 1, this->m_y + 16, 1);
 }
 

@@ -9,7 +9,11 @@ void UpdateContent(LevelContent* m_content,SDL_Rect camera)
 
 	for (unsigned int i = 0; i < m_content->items.size(); ++i)
 	{
-		m_content->items.at(i).Update(m_content->tileMap);
+		if (isOutScreen(camera, m_content->items.at(i).GetRect()))
+			m_content->items.erase(m_content->items.begin() + i);
+		else
+			m_content->items.at(i).Update(m_content->tileMap);
+
 	}
 	for (unsigned int i = 0; i < m_content->bullets.size(); ++i)
 	{

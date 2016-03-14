@@ -79,7 +79,7 @@ int Item::PickUp()
 
 SDL_Rect Item::GetRect()
 {
-	SDL_Rect output = { this->m_x,this->m_y,16,16 };
+	SDL_Rect output = { this->m_x,this->m_y,ITEM_WIDTH,ITEM_HEIGHT };
 	return output;
 }
 

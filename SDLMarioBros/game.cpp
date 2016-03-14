@@ -214,9 +214,7 @@ bool Game::LoadLevel(Texture* tileset, Texture* enemyTexture)
 				success = false;
 				break;
 			}
-
 			x++;
-
 			if (x >= LEVEL_WIDTH / TILE_WIDTH) {
 				x = 0;
 				y++;
