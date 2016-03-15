@@ -63,6 +63,7 @@ private:
 	int m_vely;
 	bool m_jumping;
 	bool m_onGround;
+	bool m_direction;
 	int m_pwrupState;
 	//Texture* m_sprite;
 	AnimatedSprite* m_sprite;

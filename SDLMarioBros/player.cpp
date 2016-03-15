@@ -10,6 +10,7 @@ Player::Player()
 	this->m_vely = 0;
 	this->m_onGround = false;
 	this->m_jumping = false;
+	this->m_direction = false;
 	this->m_pwrupState = PLAYER_SMALL;
 }
 
@@ -147,6 +148,11 @@ void Player::Update(LevelContent &content,Graphics* graph, Sound* sound)
 	this->m_x += m_velx;
 	this->m_y += m_vely;
 
+	if (this->m_velx > 0)
+		this->m_direction = false;
+	else if (this->m_velx < 0)
+		this->m_direction = true;
+
 	// Limit the mouvement of the player to the boundaries of the level
 	if (this->m_x > LEVEL_WIDTH - this->GetWidth())
 		this->m_x = LEVEL_WIDTH - this->GetWidth();
@@ -233,7 +239,7 @@ void Player::Draw(Graphics* graph, int camX, int camY)
 	if (m_sprite != NULL) {
 		SDL_Rect sourceRect = GetOffset(this->m_pwrupState);
 		SDL_Rect destRect = { this->m_x - camX, this->m_y - camY,sourceRect.w, sourceRect.h };
-		if (this->m_velx < 0)
+		if (this->m_direction)
 			this->m_sprite->Draw(graph, &destRect,SDL_FLIP_HORIZONTAL);
 		else
 			this->m_sprite->Draw(graph, &destRect);
