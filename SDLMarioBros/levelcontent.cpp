@@ -12,6 +12,7 @@ void UpdateContent(LevelContent* m_content,SDL_Rect camera)
 			{
 				m_content->bullets.erase(m_content->bullets.begin() + j);
 				m_content->ennemies.erase(m_content->ennemies.begin() + i);
+				break;
 			}
 		}
 

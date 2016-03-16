@@ -116,19 +116,24 @@ void Player::Update(LevelContent &content,Graphics* graph, Sound* sound)
 			}
 		}
 	}
-	if (this->m_pwrupState == PLAYER_STAR)
-	{
-		for (unsigned int i = 0; i < content.ennemies.size(); i++)
+	
+	for (unsigned int i = 0; i < content.ennemies.size(); i++)
 		{
 			if (CheckCollision(this->GetRect(), content.ennemies.at(i).GetRect()))
 			{
-				content.ennemies.erase(content.ennemies.begin() + i);
-				printf("Enemy killed by Player\n");
-				this->m_score += 100;
-				sound->PlaySound("stomp");
+				if (this->m_pwrupState == PLAYER_STAR)
+				{
+					content.ennemies.erase(content.ennemies.begin() + i);
+					printf("Enemy killed by Player\n");
+					this->m_score += 100;
+					sound->PlaySound("stomp");
+				}
+				else
+				{
+					printf("Player Dead\n");
+				}
 			}
 		}
-	}
 
 	// See if this can be moved to game class 
 	for (unsigned int i = 0; i < content.items.size(); i++)
