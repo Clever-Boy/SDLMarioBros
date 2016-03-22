@@ -19,7 +19,7 @@
 #include "input.h"
 
 
-enum class GameState { PLAY, EXIT };
+enum class GameState { PLAY, PAUSE, EXIT };
 
 class Game
 {
@@ -36,7 +36,9 @@ private:
 	bool LoadLevel(Texture* tileset, Texture* enemyTexture);
 	void UIInit();
 	void SoundInit();
+	void Pause();
 
+	GameState m_gamestate;
 	Graphics* m_graphics;
 	Sound* m_sound;
 	Player* m_player;

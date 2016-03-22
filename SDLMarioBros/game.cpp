@@ -68,6 +68,7 @@ void Game::GameLoop()
 
 	// If the map is load correctly, we launch the game loop
 	if (levelLoadSuccess) {		
+		this->m_gamestate = GameState::PLAY;
 		bool quit = false;
 		while (!quit)
 		{
@@ -132,25 +133,28 @@ void Game::Update()
 		camera.y = LEVEL_HEIGHT - camera.h;
 	}
 
-	// Update the player
-	this->m_player->Update(this->m_content,this->m_graphics, this->m_sound);
-
-	if (this->m_player->GetX() < camera.x)
-		this->m_player->SetX(camera.x);
-
-	UpdateContent(&this->m_content,camera);
-
-	// Update the HUD
-	this->m_uimanager.EditText(std::to_string(this->m_player->GetScore()), "score");
-	this->m_uimanager.EditText(std::to_string(this->m_leveltimer.GetCurrentTime()), "time");
-	this->m_uimanager.EditText(std::to_string(this->m_player->GetCoins()), "coincount");
-	this->m_uimanager.Update(this->m_graphics);
-
-	// Looping the music
-	/*if (Mix_PlayingMusic() == 0)
+	if (this->m_gamestate == GameState::PLAY)
 	{
-		this->m_sound->PlayMusic();
-	}*/
+		// Update the player
+		this->m_player->Update(this->m_content, this->m_graphics, this->m_sound);
+
+		if (this->m_player->GetX() < camera.x)
+			this->m_player->SetX(camera.x);
+
+		UpdateContent(&this->m_content, camera);
+
+		// Update the HUD
+		this->m_uimanager.EditText(std::to_string(this->m_player->GetScore()), "score");
+		this->m_uimanager.EditText(std::to_string(this->m_leveltimer.GetCurrentTime()), "time");
+		this->m_uimanager.EditText(std::to_string(this->m_player->GetCoins()), "coincount");
+		this->m_uimanager.Update(this->m_graphics);
+
+		// Looping the music
+		/*if (Mix_PlayingMusic() == 0)
+		{
+			this->m_sound->PlayMusic();
+		}*/
+	}
 
 	SDL_Delay(8);
 
@@ -158,16 +162,22 @@ void Game::Update()
 
 void Game::HandleInput()
 {
-	if (this->m_input.isKeyHeld(SDL_SCANCODE_LEFT))
+	if (this->m_input.isKeyHeld(SDL_SCANCODE_LEFT) && this->m_gamestate == GameState::PLAY)
 		this->m_player->MoveLeft();
-	else if (this->m_input.isKeyHeld(SDL_SCANCODE_RIGHT))
+	else if (this->m_input.isKeyHeld(SDL_SCANCODE_RIGHT) && this->m_gamestate == GameState::PLAY)
 		this->m_player->MoveRight();	
 
-	if (this->m_input.wasKeyPressed(SDL_SCANCODE_UP))
+	if (this->m_input.wasKeyPressed(SDL_SCANCODE_UP) && this->m_gamestate == GameState::PLAY)
 		this->m_player->Jump(this->m_sound);
 
-	if (this->m_input.wasKeyPressed(SDL_SCANCODE_W))
+	if (this->m_input.wasKeyPressed(SDL_SCANCODE_W) && this->m_gamestate == GameState::PLAY)
 		this->m_player->Fire(this->m_graphics, &this->m_content.bullets);
+
+	if (this->m_input.wasKeyPressed(SDL_SCANCODE_P))
+		this->Pause();
+
+	if (this->m_gamestate != GameState::PLAY)
+		this->m_player->Idle();
 
 	if (!this->m_input.isKeyHeld(SDL_SCANCODE_LEFT) && !this->m_input.isKeyHeld(SDL_SCANCODE_RIGHT))
 		this->m_player->Idle();
@@ -249,4 +259,21 @@ void Game::SoundInit()
 	this->m_sound->AddSound("sounds/1up.wav", "1up");
 	this->m_sound->AddSound("sounds/pwrdown.wav", "pwrdown");
 	this->m_sound->AddSound("sounds/bricksmash.wav", "bricksmash");
+}
+
+void Game::Pause()
+{
+	if (this->m_gamestate != GameState::PAUSE)
+	{
+		this->m_gamestate = GameState::PAUSE;
+		this->m_leveltimer.Pause();
+		printf("Game Paused\n");
+	}		
+	else
+	{
+		this->m_gamestate = GameState::PLAY;
+		this->m_leveltimer.UnPause();
+		printf("Game Unpaused\n");
+	}
+		
 }
