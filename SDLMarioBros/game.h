@@ -19,21 +19,24 @@
 #include "input.h"
 
 
+enum class GameState { PLAY, EXIT };
+
 class Game
 {
 public:
 	Game();
-	~Game();
+	~Game();	
+
+private:
 	int SDLInit();
 	void GameLoop();
 	void Draw();		// Draw call for the graphics objet to render
 	void Update();		// Update call for the game logic 
 	void HandleInput();
-	bool LoadLevel(Texture* tileset,Texture* enemyTexture);
+	bool LoadLevel(Texture* tileset, Texture* enemyTexture);
 	void UIInit();
 	void SoundInit();
 
-private:
 	Graphics* m_graphics;
 	Sound* m_sound;
 	Player* m_player;
