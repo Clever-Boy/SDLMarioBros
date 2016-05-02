@@ -19,3 +19,6 @@ struct LevelContent
 
 void UpdateContent(LevelContent* m_content, SDL_Rect camera);
 void DrawContent(LevelContent* m_content, Graphics* graph, SDL_Rect* camera);
+void ClearTilemap(Tile* tilemap[]);
+void ClearContent(LevelContent* m_content);
+

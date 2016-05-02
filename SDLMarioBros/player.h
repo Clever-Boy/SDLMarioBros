@@ -37,6 +37,8 @@ public:
 	void MoveLeft();
 	void MoveRight();
 	void Jump(Sound* sound);
+	void Sprint();
+	void Unsprint();
 	void Fire(Graphics* graph, std::vector<Bullet>* bullets);
 
 	// Player's States
@@ -64,8 +66,8 @@ private:
 	bool m_jumping;
 	bool m_onGround;
 	bool m_direction;
+	bool m_sprint;
 	int m_pwrupState;
-	//Texture* m_sprite;
 	AnimatedSprite* m_sprite;
 	Timer m_timer;
 	int m_score = 0;

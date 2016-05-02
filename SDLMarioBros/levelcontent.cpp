@@ -52,3 +52,21 @@ void DrawContent(LevelContent* m_content, Graphics* graph, SDL_Rect* camera)
 		m_content->bullets.at(i).Draw(graph, camera->x, camera->y);
 	}
 }
+
+void ClearTilemap(Tile* tilemap[])
+{
+	for (int i = 0; i < TOTAL_TILES; i++)
+	{
+		free(tilemap[i]);
+		tilemap[i] = nullptr;
+	}
+}
+
+
+void ClearContent(LevelContent* m_content)
+{
+	m_content->bullets.clear();
+	m_content->ennemies.clear();
+	m_content->items.clear();
+	ClearTilemap(m_content->tileMap);
+}

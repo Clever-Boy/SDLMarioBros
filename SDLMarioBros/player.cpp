@@ -11,6 +11,7 @@ Player::Player()
 	this->m_onGround = false;
 	this->m_jumping = false;
 	this->m_direction = false;
+	this->m_sprint = false;
 	this->m_pwrupState = PLAYER_SMALL;
 }
 
@@ -30,6 +31,7 @@ Player::~Player()
 
 void Player::Update(LevelContent &content,Graphics* graph, Sound* sound)
 {
+	
 	// Collision detection (to factorize into checkCollision function)
 	SDL_Rect groundPlayerHitBox = { this->m_x,this->m_y + 3, this->GetWidth(), this->GetHeight() };
 	for (int i = 0; i < TOTAL_TILES; ++i)
@@ -272,12 +274,18 @@ void Player::Idle()
 
 void Player::MoveLeft()
 {
-	this->m_velx = -PLAYER_SPEED;
+	if (this->m_sprint)
+		this->m_velx = -(PLAYER_SPEED * 2);
+	else
+		this->m_velx = -(PLAYER_SPEED);
 }
 
 void Player::MoveRight()
 {
-	this->m_velx = PLAYER_SPEED;
+	if (this->m_sprint)
+		this->m_velx = PLAYER_SPEED*2;
+	else
+		this->m_velx = PLAYER_SPEED;
 }
 
 void Player::Jump(Sound* sound)
@@ -288,6 +296,18 @@ void Player::Jump(Sound* sound)
 		this->m_timer.Start(300);
 		sound->PlaySound("jump");
 	}
+}
+
+void Player::Sprint()
+{
+	if (!this->m_sprint)
+		this->m_sprint = true;
+}
+
+void Player::Unsprint()
+{
+	if (this->m_sprint)
+		this->m_sprint = false;
 }
 
 void Player::Fire(Graphics * graph, std::vector<Bullet>* bullets)

@@ -69,8 +69,7 @@ void Game::GameLoop()
 	// If the map is load correctly, we launch the game loop
 	if (levelLoadSuccess) {		
 		this->m_gamestate = GameState::PLAY;
-		bool quit = false;
-		while (!quit)
+		while (this->m_gamestate != GameState::EXIT)
 		{
 			this->m_input.beginNewFrame();
 			SDL_Event e;
@@ -90,7 +89,7 @@ void Game::GameLoop()
 				}
 				else if (e.type == SDL_QUIT)
 				{
-					quit = true;
+					this->m_gamestate = GameState::EXIT;
 				}
 			}			
 			this->HandleInput();
@@ -175,6 +174,11 @@ void Game::HandleInput()
 
 	if (this->m_input.wasKeyPressed(SDL_SCANCODE_P))
 		this->Pause();
+
+	if (this->m_input.isKeyHeld(SDL_SCANCODE_LSHIFT) && this->m_gamestate == GameState::PLAY)
+		this->m_player->Sprint();
+	else
+		this->m_player->Unsprint();
 
 	if (this->m_gamestate != GameState::PLAY)
 		this->m_player->Idle();
@@ -276,4 +280,9 @@ void Game::Pause()
 		printf("Game Unpaused\n");
 	}
 		
+}
+
+void Game::Reset()
+{
+	ClearContent(&this->m_content);
 }

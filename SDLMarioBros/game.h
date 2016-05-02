@@ -37,6 +37,7 @@ private:
 	void UIInit();
 	void SoundInit();
 	void Pause();
+	void Reset();
 
 	GameState m_gamestate;
 	Graphics* m_graphics;
