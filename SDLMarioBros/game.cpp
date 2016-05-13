@@ -1,5 +1,7 @@
 #include "game.h"
 
+
+
 Game::Game()
 {
 	printf("DEBUG : Creating instance of Game\n");
@@ -69,6 +71,7 @@ void Game::GameLoop()
 	// If the map is load correctly, we launch the game loop
 	if (levelLoadSuccess) {		
 		this->m_gamestate = GameState::PLAY;
+		
 		while (this->m_gamestate != GameState::EXIT)
 		{
 			this->m_input.beginNewFrame();
@@ -94,8 +97,14 @@ void Game::GameLoop()
 			}			
 			this->HandleInput();
 			Update();
-			Draw();
-		}
+			Draw();	
+
+			if (this->m_gamestate == GameState::RESTART)
+			{
+				Reset();
+			}
+			
+		}		
 	}
 	else
 		printf("ERROR : Loading of the tilemap failed");
@@ -153,6 +162,11 @@ void Game::Update()
 		{
 			this->m_sound->PlayMusic();
 		}*/
+
+		if (this->m_player->isDead()) {
+			SDL_Delay(1000);
+			this->m_gamestate = GameState::RESTART;
+		}
 	}
 
 	SDL_Delay(8);
@@ -182,6 +196,8 @@ void Game::HandleInput()
 
 	if (this->m_gamestate != GameState::PLAY)
 		this->m_player->Idle();
+	if (this->m_input.wasKeyPressed(SDL_SCANCODE_R))
+		this->m_gamestate = GameState::RESTART;
 
 	if (!this->m_input.isKeyHeld(SDL_SCANCODE_LEFT) && !this->m_input.isKeyHeld(SDL_SCANCODE_RIGHT))
 		this->m_player->Idle();
@@ -285,4 +301,21 @@ void Game::Pause()
 void Game::Reset()
 {
 	ClearContent(&this->m_content);
+
+	Texture* tilesetTexture = new Texture(this->m_graphics, "tilesets/global.png");
+	Texture* enemyTexture = new Texture(this->m_graphics, "sprites/goomba.png");
+	bool levelLoadSuccess = this->LoadLevel(tilesetTexture, enemyTexture);
+
+	if (!levelLoadSuccess)
+		this->m_gamestate = GameState::EXIT;
+	else {
+		this->m_leveltimer.Stop();
+		this->m_leveltimer.Start(400000);
+		this->m_player->Reset();
+		this->m_player->SetX(1);
+		this->camera.x = 0;
+		this->camera.y = 0;
+		this->m_player->SetY(SCREEN_HEIGHT - TILE_HEIGHT * 3);
+		this->m_gamestate = GameState::PLAY;
+	}
 }

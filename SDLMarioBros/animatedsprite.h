@@ -24,7 +24,7 @@ public:
 
 private:
 	std::string m_currentAnimation = " ";
-	int m_frameIndex = 0;
+	unsigned int m_frameIndex = 0;
 	std::map<std::string, std::vector<SDL_Rect>> m_animations;
 	Timer m_timer;
 

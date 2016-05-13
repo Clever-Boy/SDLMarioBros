@@ -17,6 +17,6 @@ public:
 
 private:
 	bool m_enabled;
-	int	 m_timeStart;
-	int	 m_timeEnd;	
+	unsigned int m_timeStart;
+	unsigned int m_timeEnd;	
 };

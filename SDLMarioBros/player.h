@@ -30,7 +30,7 @@ public:
 	~Player();
 	void Update(LevelContent &content, Graphics* graphics, Sound* sound);
 	void Draw(Graphics* graph, int camX, int camY);
-	void setupAnimations();
+	
 
 	// Player's actions
 	void Idle();
@@ -40,10 +40,13 @@ public:
 	void Sprint();
 	void Unsprint();
 	void Fire(Graphics* graph, std::vector<Bullet>* bullets);
+	void Hit();
+	void Reset();
 
 	// Player's States
 	bool isOnGround();
 	bool isJumping();
+	bool isDead();
 
 	// Accessors
 	int GetX();
@@ -53,17 +56,21 @@ public:
 	int GetScore();
 	int GetCoins();
 	SDL_Rect GetRect();
-
-	void SetX(int x);
-
 	SDL_Rect GetOffset(int pwrup);
 
+	// Setters
+	void SetX(int x);
+	void SetY(int y);
+
 private:
+	void setupAnimations();
+	
 	int m_x;
 	int m_y;
 	int m_velx;
 	int m_vely;
 	bool m_jumping;
+	bool m_dead;
 	bool m_onGround;
 	bool m_direction;
 	bool m_sprint;

@@ -12,6 +12,7 @@ Player::Player()
 	this->m_jumping = false;
 	this->m_direction = false;
 	this->m_sprint = false;
+	this->m_dead = false;
 	this->m_pwrupState = PLAYER_SMALL;
 }
 
@@ -32,11 +33,12 @@ Player::~Player()
 void Player::Update(LevelContent &content,Graphics* graph, Sound* sound)
 {
 	
+	
 	// Collision detection (to factorize into checkCollision function)
 	SDL_Rect groundPlayerHitBox = { this->m_x,this->m_y + 3, this->GetWidth(), this->GetHeight() };
 	for (int i = 0; i < TOTAL_TILES; ++i)
 	{
-		if (content.tileMap[i]->CheckCollision(groundPlayerHitBox) && content.tileMap[i]->GetValue() > 0) {
+		if (content.tileMap[i]->CheckCollision(groundPlayerHitBox) && content.tileMap[i]->GetValue() > 0 && !this->m_dead) {
 			this->m_onGround = true;
 			break;
 		}
@@ -109,7 +111,7 @@ void Player::Update(LevelContent &content,Graphics* graph, Sound* sound)
 		groundPlayerHitBox = { this->m_x,this->m_y + 1, this->GetWidth(), this->GetHeight() };
 		for (unsigned int i = 0; i < content.ennemies.size(); i++)
 		{
-			if (CheckCollision(groundPlayerHitBox, content.ennemies.at(i).GetRect()))
+			if (CheckCollision(groundPlayerHitBox, content.ennemies.at(i).GetRect()) && !this->isDead())
 			{
 				content.ennemies.erase(content.ennemies.begin() + i);
 				printf("Enemy killed by Player\n");
@@ -132,7 +134,8 @@ void Player::Update(LevelContent &content,Graphics* graph, Sound* sound)
 				}
 				else
 				{
-					printf("Player Dead\n");
+					printf("Player Hit\n");
+					this->Hit();
 				}
 			}
 		}
@@ -235,6 +238,9 @@ void Player::Update(LevelContent &content,Graphics* graph, Sound* sound)
 				this->m_sprite->PlayAnimation("fire_idle");
 		}
 	}
+
+	if (this->GetY() > LEVEL_HEIGHT + 32)
+		this->m_dead = true;
 	
 	this->m_sprite->Update();
 
@@ -316,6 +322,31 @@ void Player::Fire(Graphics * graph, std::vector<Bullet>* bullets)
 		bullets->emplace_back(graph, this->m_x + 1, this->m_y + 16, 1);
 }
 
+void Player::Hit()
+{
+	if (this->m_pwrupState > PLAYER_SMALL)
+	{
+		this->m_pwrupState -= 1;
+	}
+	else
+	{
+		this->m_dead = true;
+	}
+	// else dead
+}
+
+void Player::Reset()
+{
+	this->m_velx = 0;
+	this->m_vely = 0;
+	this->m_onGround = false;
+	this->m_jumping = false;
+	this->m_direction = false;
+	this->m_sprint = false;
+	this->m_pwrupState = PLAYER_SMALL;
+	this->m_dead = false;
+}
+
 
 bool Player::isOnGround()
 {
@@ -368,6 +399,11 @@ void Player::SetX(int x)
 	this->m_x = x;
 }
 
+void Player::SetY(int y)
+{
+	this->m_y = y;
+}
+
 SDL_Rect Player::GetOffset(int pwrup)
 {
 	SDL_Rect output;
@@ -400,4 +436,9 @@ SDL_Rect Player::GetOffset(int pwrup)
 	}
 
 	return output;
+}
+
+bool Player::isDead()
+{
+	return this->m_dead;
 }

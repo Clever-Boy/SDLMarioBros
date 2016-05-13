@@ -1,5 +1,8 @@
 #pragma once
 
+#define _CRTDBG_MAP_ALLOC
+#include <stdlib.h>
+#include <crtdbg.h>
 #include <stdio.h>
 
 #include <fstream>
@@ -19,7 +22,7 @@
 #include "input.h"
 
 
-enum class GameState { PLAY, PAUSE, EXIT };
+enum class GameState { PLAY, PAUSE, EXIT , RESTART};
 
 class Game
 {
